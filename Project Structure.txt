@@ -1,0 +1,19 @@
+freshtime-portal/
+├── backend/
+│   ├── .env
+│   ├── server.js
+│   ├── package.json
+│   ├── middleware/
+│   │   └── auth.js
+│   └── routes/
+│       ├── tickets.js
+│       ├── feedback.js
+│       └── admin.js
+├── public/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       ├── app.js
+│       └── admin.js
+├── package.json
+└── index.html

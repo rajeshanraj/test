@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="iDxWeIvp-dpcQM_DC3O2nRfI2hFe7m0K8p_O1aF_IuU" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freshtime Enterprises | IT Sales, Services & Helpdesk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Top Info Bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>Freshtime Enterprises • Computer Sales • Networking • Dual Sync Console</p>
+      <div class="flex items-center gap-4">
+        <span>Support: +91 93802 55828</span>
+        <button type="button" onclick="openFeedbackModal()" class="text-emerald-400 hover:text-emerald-300 font-bold underline flex items-center gap-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          Leave Feedback
+        </button>
+        <button type="button" onclick="showAdminView()" class="text-amber-400 hover:text-amber-300 font-bold underline flex items-center gap-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Admin Portal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="brand-gradient text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div>
+        <button type="button" onclick="showMainView()" class="text-xl md:text-2xl font-bold tracking-tight text-white block text-left cursor-pointer">
+          Freshtime Enterprises
+        </button>
+        <span class="text-[11px] text-blue-200">Hardware Sales • Computer AMC • Technical Assistance</span>
+      </div>
+
+      <nav class="flex items-center gap-4 md:gap-6 text-sm font-medium text-blue-100">
+        <button type="button" onclick="showMainView()" class="hover:text-white transition cursor-pointer">Home & Services</button>
+        <button type="button" onclick="openFeedbackModal()" class="hover:text-white transition cursor-pointer hidden sm:inline-block">Feedback</button>
+        <button type="button" onclick="showReportView()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-3.5 py-1.5 rounded-lg text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer">
+          <span>Raise Technical Issue</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: MAIN HOMEPAGE ================= -->
+  <div id="mainHomepageView">
+    <section class="bg-white border-b border-slate-200 py-16 px-4">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3.5 py-1 rounded-full uppercase tracking-wider">
+          Freshtime Enterprises Helpdesk
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Need Technical Assistance with Your Portal Login?
+        </h1>
+        <p class="text-slate-600 text-base max-w-2xl mx-auto">
+          Facing UUCMS / SSP ID fetching errors, mandatory password loops, ODP verification failures, or credential sync barriers? Submit a ticket to our technical resolution desk for instant review.
+        </p>
+        
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+          <button type="button" onclick="showReportView()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-blue-500/25 transition text-base flex items-center gap-2 cursor-pointer">
+            <span>Open Technical Issue Portal</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+          <button type="button" onclick="openFeedbackModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-6 py-4 rounded-xl border border-slate-300 transition text-base flex items-center gap-2 cursor-pointer">
+            <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <span>Rate Our Service</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-12 space-y-12">
+      <section class="space-y-6">
+        <div class="border-b pb-3">
+          <h2 class="text-2xl font-bold text-slate-900">Freshtime Enterprises - Services</h2>
+          <p class="text-xs text-slate-500">Professional hardware servicing, system upgrades, and annual maintenance.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">01</div>
+            <h3 class="font-bold text-slate-800 text-lg">Laptops & Desktops</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Brand new & refurbished desktop towers, student laptops, monitors, SSD upgrades, and high-speed RAM with verified warranties.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">02</div>
+            <h3 class="font-bold text-slate-800 text-lg">Hardware Servicing & AMC</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Chip-level motherboard diagnosis, display panel replacement, power supply repair, printer servicing, and computer lab maintenance.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">03</div>
+            <h3 class="font-bold text-slate-800 text-lg">Software & Networking</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Operating system setups, firewall installations, structured LAN cabling, and academic portal configuration support.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Status Tracker Section -->
+      <section class="bg-white rounded-2xl shadow-sm border-2 border-blue-200 p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-blue-100 text-blue-700 rounded-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">Check Technical Issue Status</h2>
+            <p class="text-xs text-slate-500">Live database lookup via our backend engine.</p>
+          </div>
+        </div>
+
+        <form onsubmit="checkTicketStatus(event)" class="mt-4 flex flex-col sm:flex-row gap-3">
+          <input 
+            type="text" 
+            id="searchQuery" 
+            required 
+            placeholder="Enter Ticket ID, 12-Digit UTR, or Registered Mobile Number" 
+            class="flex-1 border border-slate-300 rounded-lg p-3 bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+          />
+          <button 
+            type="submit" 
+            id="checkBtn" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg text-sm shadow transition cursor-pointer"
+          >
+            Check Status
+          </button>
+        </form>
+
+        <div id="statusResultBox" class="mt-4 hidden p-4 rounded-xl border"></div>
+      </section>
+
+      <!-- User Reviews / Testimonials Section -->
+      <section class="space-y-6 pt-4">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-3 border-b pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600">User Reviews</span>
+            <h2 class="text-2xl font-bold text-slate-900">What Candidates & Colleges Say</h2>
+            <p class="text-xs text-slate-500">Real feedback submitted by users resolved through our technical helpdesk.</p>
+          </div>
+          <button type="button" onclick="openFeedbackModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 w-max cursor-pointer">
+            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <span>Write a Review</span>
+          </button>
+        </div>
+
+        <div id="feedbackCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= VIEW 2: DEDICATED ISSUE REPORT DESK ================= -->
+  <div id="reportPortalView" class="hidden flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-6">
+    <div class="flex items-center justify-between pb-2 border-b">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900">Freshtime Enterprises - Technical Desk</h2>
+        <p class="text-xs text-slate-500">Secure Payment & Grievance Registration</p>
+      </div>
+      <button type="button" onclick="showMainView()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-1.5 rounded-lg transition font-medium cursor-pointer">
+        &larr; Back to Main Website
+      </button>
+    </div>
+
+    <!-- Security Warning -->
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm">
+      <div class="flex items-start">
+        <svg class="h-6 w-6 text-amber-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div>
+          <h3 class="text-sm font-bold text-amber-900 uppercase tracking-wider">Mandatory Security & Auto-Purge Notice</h3>
+          <p class="text-xs text-amber-800 mt-1">
+            <strong>Important:</strong> After the result and resolution of the reported technical issue, 
+            <span class="underline font-semibold">all submitted login credentials, passwords, and ODPs will be permanently deleted</span> from our records.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8">
+      <form id="issueForm" onsubmit="openFreshPayModal(event)" class="space-y-6">
+
+        <!-- User & Contact Details -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">User & Contact Details</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">User / Applicant Name *</label>
+              <input 
+                type="text" 
+                id="applicantName" 
+                required 
+                placeholder="Enter Full Name" 
+                class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+              />
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Contact Phone Number *</label>
+              <input 
+                type="tel" 
+                id="contactNumber" 
+                pattern="[0-9]{10}" 
+                required 
+                placeholder="10-digit mobile number" 
+                class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Applicant Classification -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">Applicant Classification</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Application Type *</label>
+              <select id="applicationType" onchange="handleApplicationTypeChange()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="" disabled selected>-- Select Application Type --</option>
+                <option value="UUCMS">UUCMS</option>
+                <option value="SSP">SSP</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Applicant Type *</label>
+              <select id="applicantType" onchange="handleApplicantTypeChange()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="" disabled selected>-- Select Application Type First --</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Grievance Details -->
+        <div id="technicalGrievanceSection" class="hidden space-y-4">
+          <h3 class="text-sm font-semibold text-slate-800">Technical Grievance Details</h3>
+          
+          <div id="issueCategoryBox">
+            <label class="block text-xs font-medium text-slate-700 mb-1">Type of Issue *</label>
+            <select id="issueCategory" onchange="updateProcessingFee()" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="" disabled selected>-- Select Type of Issue --</option>
+              <option value="APAAR / Upper ID Fetching Issue">APAAR / Upper ID Fetching Issue</option>
+              <option value="Mandatory Password Changing Issue">Mandatory Password Changing Issue</option>
+              <option value="Password Reset Error">Password Reset Error</option>
+              <option value="Admission / Registration Process">Admission / Registration Process</option>
+              <option value="Other Issue">Other Issue</option>
+            </select>
+          </div>
+
+          <div id="errorDescriptionBox">
+            <label class="block text-xs font-medium text-slate-700 mb-1">Error Description *</label>
+            <textarea 
+              id="issueDescription" 
+              rows="2" 
+              placeholder="Describe the error code or barrier faced..." 
+              class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Portal Resolution Credentials -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-1">Portal Resolution Credentials</h3>
+          <p class="text-[11px] text-slate-500 mb-3">Login details are strictly utilized by technical support staff to verify and fix authentication barriers.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Login ID / Register No. *</label>
+              <input 
+                type="text" 
+                id="loginId" 
+                required 
+                maxlength="12"
+                pattern="^[A-Za-z][0-9]{2}[A-Za-z]{2}[0-9]{2}[A-Za-z][0-9]{4}$"
+                title="Format: 1 Letter, 2 Numbers, 2 Letters, 2 Numbers, 1 Letter, 4 Numbers (e.g. U03XX21S0000)"
+                placeholder="e.g. U03XX21S0000" 
+                class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm font-mono uppercase focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+                oninput="handleLoginIdInput(this)"
+              />
+              <span id="loginIdHelper" class="text-[10px] text-slate-500">1-Letter, 2-Numbers, 2-Letters, 2-Numbers, 1-Letter, 4-Numbers</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Password *</label>
+              <input type="password" id="portalPassword" required placeholder="Enter Current Password" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+
+            <div id="odpContainer">
+              <label class="block text-xs font-medium text-slate-700 mb-1">Recent ODP (if applicable)</label>
+              <input type="text" id="odpValue" placeholder="Enter last received ODP or leave blank" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Email Address *</label>
+              <input type="email" id="contactEmail" required placeholder="name@domain.com" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Grievance-Wise Resolution Fee -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">Grievance-Wise Resolution Fee</h3>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-xs font-semibold text-blue-900 uppercase tracking-wide">Applicable Processing Charge</span>
+              <p id="feeBreakdownText" class="text-xs text-blue-700 mt-0.5">Please select an application type and grievance type above.</p>
+            </div>
+            <div class="flex items-baseline gap-1 bg-white px-4 py-2 rounded-lg border border-blue-200 shadow-sm self-start sm:self-auto">
+              <span class="text-xs font-bold text-slate-500">₹</span>
+              <span id="displayAmount" class="text-2xl font-extrabold text-blue-700">0.00</span>
+              <span class="text-xs text-slate-500 ml-1">INR</span>
+            </div>
+          </div>
+          <input type="hidden" id="fixedAmount" value="0.00" />
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-lg transition shadow text-sm flex items-center justify-center gap-2 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          <span>Proceed to Pay via FRESH PAY</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= USER FEEDBACK MODAL ================= -->
+  <div id="feedbackModal" class="fixed inset-0 bg-black/70 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold">★</div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 leading-none">Share Your Feedback</h3>
+            <span class="text-[10px] text-slate-500">Help us improve the support experience</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeFeedbackModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
+      </div>
+
+      <form id="feedbackForm" onsubmit="submitUserFeedback(event)" class="space-y-4">
+        <div class="text-center space-y-1">
+          <label class="block text-xs font-semibold text-slate-700">How was your service experience?</label>
+          <div class="flex justify-center gap-2 text-2xl cursor-pointer py-1" id="starContainer">
+            <button type="button" onclick="setRating(1)" class="star-btn text-amber-400">★</button>
+            <button type="button" onclick="setRating(2)" class="star-btn text-amber-400">★</button>
+            <button type="button" onclick="setRating(3)" class="star-btn text-amber-400">★</button>
+            <button type="button" onclick="setRating(4)" class="star-btn text-amber-400">★</button>
+            <button type="button" onclick="setRating(5)" class="star-btn text-amber-400">★</button>
+          </div>
+          <input type="hidden" id="feedbackRating" value="5" />
+          <span id="ratingDescriptor" class="text-[11px] font-bold text-emerald-600">5 Stars - Excellent!</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Your Full Name *</label>
+          <input type="text" id="feedbackName" required placeholder="e.g. Anand Sharma" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Your Role *</label>
+            <select id="feedbackRole" required class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Student">Student</option>
+              <option value="College Staff">College Staff</option>
+              <option value="Admin">Admin</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Ticket ID (Optional)</label>
+            <input type="text" id="feedbackTicketId" placeholder="e.g. TICKET-123456" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Your Feedback / Review *</label>
+          <textarea id="feedbackComment" rows="3" required placeholder="Write about your experience with our response time, problem diagnosis, or support desk..." class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="feedbackSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>Publish Feedback</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= FRESH PAY GATEWAY MODAL ================= -->
+  <div id="freshPayModal" class="fixed inset-0 bg-black/70 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-black text-sm tracking-wider">FP</div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 leading-none">FRESH PAY</h3>
+            <span class="text-[10px] text-emerald-700 font-semibold">Secure Payment Gateway • Freshtime Enterprises</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeFreshPayModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
+      </div>
+
+      <div class="bg-slate-900 text-white p-3 rounded-xl flex items-center justify-between">
+        <div>
+          <span class="text-[10px] text-slate-400 block uppercase">Payable Amount</span>
+          <span id="fpPayableAmount" class="text-xl font-black text-emerald-400">₹0.00</span>
+        </div>
+        <span class="text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-full">All Indian Payment Modes</span>
+      </div>
+
+      <div class="bg-emerald-50 border-2 border-emerald-500/40 rounded-2xl p-4 text-center space-y-3">
+        <span class="text-xs font-bold text-emerald-900 uppercase tracking-wide block">Scan with any UPI App to Pay</span>
+        <div class="bg-white p-2.5 rounded-xl border border-emerald-200 inline-block shadow-sm">
+          <img id="dynamicUpiQr" src="" alt="FRESH PAY Dynamic UPI QR" class="w-48 h-48 mx-auto" />
+        </div>
+        <div class="space-y-1">
+          <div class="text-xs font-mono font-bold text-slate-800 flex items-center justify-center gap-1.5">
+            <span>UPI ID:</span>
+            <span class="bg-white px-2 py-0.5 rounded border text-emerald-800 font-extrabold select-all">Q68094857@ybl</span>
+          </div>
+          <p class="text-[11px] text-slate-600">Scan & pay the exact fee shown above.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+        <h4 class="text-xs font-bold text-slate-900 uppercase">Payment Verification Details (Mandatory)</h4>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">12-Digit Bank Reference / UTR Number *</label>
+          <input 
+            type="text" 
+            id="fpUtrInput" 
+            maxlength="12" 
+            pattern="[0-9]{12}" 
+            required 
+            placeholder="e.g. 425689102345" 
+            class="w-full border border-slate-300 rounded-lg p-2.5 text-xs font-mono bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none" 
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Payment Method Used *</label>
+          <select id="fpPaymentModeSelect" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="PhonePe">PhonePe</option>
+            <option value="Google Pay (GPay)">Google Pay (GPay)</option>
+            <option value="Paytm UPI">Paytm UPI</option>
+            <option value="BHIM UPI">BHIM UPI</option>
+            <option value="CRED / Navi">CRED / Navi</option>
+            <option value="RuPay / Debit / Credit Card">RuPay / Debit / Credit Card</option>
+            <option value="Net Banking">Net Banking</option>
+            <option value="Other Wallet">Other Wallet</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Payment Screenshot *</label>
+          <input 
+            type="file" 
+            id="fpScreenshotInput" 
+            accept="image/*" 
+            required 
+            class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-white text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+          />
+        </div>
+      </div>
+
+      <button 
+        type="button" 
+        id="fpSubmitPaymentBtn" 
+        onclick="confirmAndSubmitFreshPay()" 
+        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>Confirm Payment & Submit Ticket</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      </button>
+      <button type="button" onclick="closeFreshPayModal()" class="w-full text-center text-xs text-slate-500 hover:text-slate-700 py-1 cursor-pointer">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ================= VIEW 3: ADMIN PORTAL LOGIN & DUAL DATABASE VIEWER ================= -->
+  <div id="adminPortalView" class="hidden flex-grow max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
+    <div id="adminLoginBox" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 space-y-5">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <h2 class="text-xl font-bold text-slate-900">Freshtime Admin Login</h2>
+        <p class="text-xs text-slate-500 mt-1">Dual Synchronized Grievance Console</p>
+      </div>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Username</label>
+          <input type="text" id="adminUsername" required placeholder="admin" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+        <div id="adminLoginError" class="text-xs text-red-600 hidden font-medium text-center"></div>
+        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-lg text-sm shadow cursor-pointer">
+          Sign In to Live Console
+        </button>
+      </form>
+    </div>
+
+    <!-- Admin Live Data Dashboard -->
+    <div id="adminDashboardBox" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div>
+          <span id="dataSyncBadge" class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase flex items-center gap-1.5 w-max">
+            <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+            Dual Database Sync Active
+          </span>
+          <h2 class="text-2xl font-bold text-slate-900 mt-1">Unified Grievance Control Center</h2>
+          <p class="text-xs text-slate-500">Combining records from Google Sheet and Firebase Realtime Database.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="loadAdminRecords()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition flex items-center gap-1 cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Refresh Dual DB
+          </button>
+          <button type="button" onclick="exportToCSV()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition flex items-center gap-1 cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Export CSV
+          </button>
+          <button type="button" onclick="handleAdminLogout()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition cursor-pointer">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200">
+          <span class="text-xs text-slate-500 font-semibold">Total Records</span>
+          <div id="statTotalTickets" class="text-2xl font-black text-slate-900 mt-1">0</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input 
+          type="text" 
+          id="tableSearchInput" 
+          onkeyup="filterSheetTable()" 
+          placeholder="Instant search by Ticket ID, Name, Login ID, UTR, or Mobile..." 
+          class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+        />
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto max-h-[600px]">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-100 uppercase font-semibold text-slate-600 sticky top-0 border-b border-slate-200">
+              <tr>
+                <th class="p-3">Action</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Ticket ID</th>
+                <th class="p-3">Applicant Name</th>
+                <th class="p-3">12-Digit UTR</th>
+                <th class="p-3">Payment Method</th>
+                <th class="p-3">Payment Proof</th>
+                <th class="p-3">Fee</th>
+                <th class="p-3">Application Type</th>
+                <th class="p-3">Applicant Type</th>
+                <th class="p-3">Type of Issue</th>
+                <th class="p-3">Login ID</th>
+                <th class="p-3">Password</th>
+                <th class="p-3">ODP</th>
+                <th class="p-3">Contact</th>
+                <th class="p-3">Email</th>
+                <th class="p-3">Timestamp</th>
+                <th class="p-3">Technician Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="sheetTableBody" class="divide-y divide-slate-200">
+              <tr>
+                <td colspan="18" class="p-6 text-center text-slate-400">Loading records...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN EDIT STATUS MODAL -->
+  <div id="editStatusModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-bold text-slate-900">Synchronized Status Update</h3>
+        <button type="button" onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold cursor-pointer">&times;</button>
+      </div>
+
+      <input type="hidden" id="editTicketRaw" />
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Ticket Reference</label>
+        <input type="text" id="editTicketDisplay" disabled class="w-full border border-slate-200 rounded-lg p-2 bg-slate-100 text-xs font-mono font-bold text-blue-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Status Classification *</label>
+        <select id="editStatusSelect" class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <option value="Payment Verification Pending">Payment Verification Pending</option>
+          <option value="Payment Verified - In Progress">Payment Verified - In Progress</option>
+          <option value="In Review / Contacting Nodal Officer">In Review / Contacting Nodal Officer</option>
+          <option value="Credentials Dispatched to Mobile">Credentials Dispatched to Mobile</option>
+          <option value="Complete / Resolved">Complete / Resolved</option>
+          <option value="Rejected / Invalid UTR or Screenshot">Rejected / Invalid UTR or Screenshot</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Technician Remarks (Visible to Candidate)</label>
+        <textarea id="editRemarksInput" rows="3" placeholder="Enter resolution notes, temporary password, or status update..." class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button type="button" onclick="closeEditModal()" class="w-1/2 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer">Cancel</button>
+        <button type="button" onclick="submitStatusUpdate()" id="saveStatusBtn" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow cursor-pointer">Save Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP MODAL: VIEW SCREENSHOT PROOF -->
+  <div id="imageProofModal" class="fixed inset-0 bg-black/80 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-4 shadow-2xl space-y-3">
+      <div class="flex justify-between items-center border-b pb-2">
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">Payment Screenshot Proof</h4>
+          <span id="proofTicketIdDisplay" class="text-[11px] font-mono text-blue-600"></span>
+        </div>
+        <button type="button" onclick="closeImageModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
+      </div>
+      <div class="overflow-auto max-h-[70vh] flex justify-center bg-slate-100 rounded-lg p-2 border border-slate-200">
+        <img id="imageProofDisplay" src="" alt="Payment Proof" class="max-w-full rounded shadow" />
+      </div>
+      <div class="text-right">
+        <button type="button" onclick="closeImageModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP MODAL: OTHER ISSUE NOTICE -->
+  <div id="otherIssueModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center shadow-2xl space-y-4 border border-slate-200">
+      <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Notice for Other Technical Issues</h3>
+      <p class="text-xs text-slate-600 leading-relaxed text-left bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+        This is a <strong>nominal initial fee of ₹80.00</strong> for Other Issue. The actual fee details will be informed or enabled to pay in the portal after our technical team reviews, finds, and clarifies your specific problem.
+      </p>
+      <button type="button" onclick="closeOtherIssueModal()" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 text-sm font-semibold transition cursor-pointer">
+        I Understand & Proceed
+      </button>
+    </div>
+  </div>
+
+  <!-- POPUP MODAL: ERROR APPLICATION NOTICE -->
+  <div id="errorApplicationModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center shadow-2xl space-y-4 border border-slate-200">
+      <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Notice for Error Application</h3>
+      <p class="text-xs text-slate-600 leading-relaxed text-left bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+        This is a <strong>nominal initial fee of ₹100.00 for Other Issue</strong>. The actual fee details will be informed or enabled to pay in the portal after our technical team reviews, finds, and clarifies your specific problem.
+      </p>
+      <button type="button" onclick="closeErrorApplicationModal()" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 text-sm font-semibold transition cursor-pointer">
+        I Understand & Proceed
+      </button>
+    </div>
+  </div>
+
+  <!-- Submission Confirmation Modal with WhatsApp Button -->
+  <div id="successModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center shadow-2xl space-y-4">
+      <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Payment Submitted & Grievance Filed!</h3>
+      <p class="text-xs text-slate-600">Your 12-digit UTR and screenshot proof have been recorded. Technical team is reviewing your ticket.</p>
+
+      <div class="bg-slate-50 p-3 rounded-lg border text-left text-xs space-y-1.5">
+        <div><strong>Ticket ID:</strong> <span id="resTicketId" class="font-mono text-blue-600 font-bold"></span></div>
+        <div><strong>Applicant Name:</strong> <span id="resApplicantName" class="font-semibold text-slate-800"></span></div>
+        <div><strong>UTR / Reference:</strong> <span id="resUtrNumber" class="font-mono font-semibold text-slate-800"></span></div>
+        <div><strong>Payment Gateway:</strong> <span class="font-bold text-emerald-700">FRESH PAY (UPI / India)</span></div>
+        <div><strong>Amount:</strong> <span id="resAmount" class="font-mono font-semibold text-emerald-700"></span></div>
+        <div><strong>Status:</strong> <span class="text-emerald-700 font-bold">Payment Verified - In Progress</span></div>
+      </div>
+
+      <a id="whatsappShareBtn" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2 transition">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>Connect with Us on WhatsApp</span>
+      </a>
+
+      <div class="flex gap-2">
+        <button type="button" onclick="showMainView(); resetAndClose();" class="w-1/2 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold cursor-pointer">Return Home</button>
+        <button type="button" onclick="resetAndClose()" class="w-1/2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 text-xs font-semibold cursor-pointer">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 space-y-4 text-center md:text-left">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <p class="text-white font-semibold">Freshtime Enterprises</p>
+          <p class="text-slate-500 mt-0.5">&copy; 2026 Freshtime Enterprises. All rights reserved.</p>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-500 border-t border-slate-800 pt-3">
+        Disclaimer: This service is provided by Freshtime Enterprises as an independent technical support provider for resolving portal synchronization and hardware barriers. All credentials submitted are strictly purged upon ticket completion.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/public/js/app.js"></script>
+  <script src="/public/js/admin.js"></script>
+</body>
+</html>
