@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Freshtime Enterprises | IT Support & Grievance Resolution Desk</title>
   
-  <!-- PWA & Mobile Web App Meta Tags -->
+  <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#0f172a" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Freshtime" />
-  <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="manifest.json" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,50 +16,16 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <style>
-    /* Native App Experience Enhancements */
-    html {
-      -webkit-tap-highlight-color: transparent;
-      overscroll-behavior-y: contain;
-    }
-    body {
-      touch-action: manipulation;
-      padding-bottom: env(safe-area-inset-bottom);
-    }
     .brand-gradient {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
     }
-    /* Safe padding so content doesn't get covered by the bottom app bar on mobile */
-    @media (max-width: 767px) {
-      .app-content-spacer {
-        padding-bottom: 5.5rem !important;
-      }
-      /* Prevent iOS auto-zoom on input focus */
-      input, select, textarea {
-        font-size: 16px !important;
-      }
-    }
-    .page-view {
-      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Active bottom tab styling */
-    .tab-active {
-      color: #38bdf8 !important;
-    }
-    .tab-active svg {
-      transform: scale(1.1);
-      color: #38bdf8 !important;
-    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between app-content-spacer selection:bg-blue-600 selection:text-white">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
-  <!-- Top Info Bar (Desktop only) -->
-  <div class="hidden md:block bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
+  <!-- Top Info Bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <p>Freshtime Enterprises • Computer Sales • Networking • Technical Resolution Desk</p>
       <div class="flex items-center gap-4">
         <span>Support: +91 7406227904</span>
@@ -75,18 +37,17 @@
     </div>
   </div>
 
-  <!-- Navigation Bar (Standard header for Desktop, compact header for Mobile) -->
-  <header class="brand-gradient text-white shadow-lg sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
-    <div class="max-w-7xl mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="navigate('home')" class="text-lg md:text-2xl font-bold tracking-tight text-white block text-left cursor-pointer active:scale-95 transition-transform">
+  <!-- Navigation Bar -->
+  <header class="brand-gradient text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div>
+        <button type="button" onclick="navigate('home')" class="text-xl md:text-2xl font-bold tracking-tight text-white block text-left cursor-pointer">
           Freshtime Enterprises
         </button>
-        <span class="hidden sm:inline-block text-[11px] text-blue-200 border-l border-blue-400/30 pl-2 ml-1">Hardware Sales & Portal Assistance</span>
+        <span class="text-[11px] text-blue-200">Hardware Sales • Computer AMC • Technical Assistance</span>
       </div>
 
-      <!-- Desktop Navigation Links (Hidden on Mobile) -->
-      <nav class="hidden md:flex items-center gap-4 text-sm font-medium text-blue-100">
+      <nav class="flex items-center gap-3 md:gap-5 text-sm font-medium text-blue-100">
         <button type="button" onclick="navigate('home')" class="hover:text-white transition cursor-pointer">Home</button>
         <button type="button" onclick="navigate('status')" class="hover:text-white transition cursor-pointer">Check Status</button>
         <button type="button" onclick="navigate('student-login')" class="hover:text-white transition cursor-pointer bg-slate-800/60 px-3 py-1.5 rounded-lg border border-blue-400/30">Student Login</button>
@@ -95,79 +56,72 @@
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </button>
       </nav>
-
-      <!-- Mobile Quick Admin Shortcut (Visible on Mobile only) -->
-      <div class="flex md:hidden items-center gap-2">
-        <button type="button" onclick="navigate('admin')" class="p-2 text-slate-300 hover:text-white bg-slate-800/60 rounded-lg border border-blue-400/20 active:scale-90 transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        </button>
-      </div>
     </div>
   </header>
 
   <!-- PWA Install Prompt Banner -->
-  <div id="pwaInstallBanner" class="hidden bg-indigo-900 text-indigo-100 px-4 py-2.5 text-xs flex justify-between items-center border-b border-indigo-800 shadow-inner">
+  <div id="pwaInstallBanner" class="hidden bg-indigo-900 text-indigo-100 px-4 py-2 text-xs flex justify-between items-center border-b border-indigo-800">
     <div class="flex items-center gap-2">
-      <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2v-6a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-      <span class="line-clamp-1">Install <strong>Freshtime App</strong> for quick access.</span>
+      <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2v-6a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      <span>Install <strong>Freshtime App</strong> on your Android device for instant notifications and direct ticket management.</span>
     </div>
-    <button type="button" id="pwaInstallBtn" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-900 font-bold px-3 py-1 rounded text-[11px] shadow">Install</button>
+    <button type="button" id="pwaInstallBtn" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-3 py-1 rounded text-[11px] shadow">Install App</button>
   </div>
 
   <!-- ================= VIEW 1: MAIN HOMEPAGE (#home) ================= -->
   <div id="view-home" class="page-view">
-    <section class="bg-white border-b border-slate-200 py-10 md:py-16 px-4">
-      <div class="max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
-        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+    <section class="bg-white border-b border-slate-200 py-16 px-4">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3.5 py-1 rounded-full uppercase tracking-wider">
           Freshtime Enterprises Helpdesk
         </span>
-        <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-snug md:leading-tight">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
           Need Technical Assistance with Your UUCMS Portal Login?
         </h1>
-        <p class="text-slate-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+        <p class="text-slate-600 text-base max-w-2xl mx-auto">
           Facing APAAR ID fetching errors, mandatory password loops, OTP verification failures, or credential sync barriers? Submit a ticket to our technical resolution desk for assistance.
         </p>
         
-        <div class="pt-3 md:pt-4 flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-          <button type="button" onclick="navigate('complaint')" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg hover:shadow-blue-500/25 transition text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer">
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+          <button type="button" onclick="navigate('complaint')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-blue-500/25 transition text-base flex items-center gap-2 cursor-pointer">
             <span>Open Technical Issue Portal</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
-          <button type="button" onclick="navigate('student-login')" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-semibold px-6 py-3.5 rounded-xl shadow transition text-sm md:text-base">
+          <button type="button" onclick="navigate('student-login')" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-6 py-4 rounded-xl shadow transition text-base">
             Student / Respondent Portal
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Services Grid & Reviews -->
-    <main class="max-w-7xl mx-auto w-full px-4 py-8 md:py-12 space-y-8 md:space-y-12">
+    <!-- Services Grid & Google Reviews -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-12 space-y-12">
       <section class="space-y-6">
         <div class="border-b pb-3">
-          <h2 class="text-xl md:text-2xl font-bold text-slate-900">Freshtime Enterprises - Services</h2>
+          <h2 class="text-2xl font-bold text-slate-900">Freshtime Enterprises - Services</h2>
           <p class="text-xs text-slate-500">Professional hardware servicing, system upgrades, and annual maintenance.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
             <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">01</div>
-            <h3 class="font-bold text-slate-800 text-base md:text-lg">Laptops & Desktops</h3>
+            <h3 class="font-bold text-slate-800 text-lg">Laptops & Desktops</h3>
             <p class="text-xs text-slate-600 leading-relaxed">
               Brand new & refurbished desktop towers, student laptops, monitors, SSD upgrades, and high-speed RAM with verified warranties.
             </p>
           </div>
 
-          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
             <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">02</div>
-            <h3 class="font-bold text-slate-800 text-base md:text-lg">Hardware Servicing & AMC</h3>
+            <h3 class="font-bold text-slate-800 text-lg">Hardware Servicing & AMC</h3>
             <p class="text-xs text-slate-600 leading-relaxed">
               Chip-level motherboard diagnosis, display panel replacement, power supply repair, printer servicing, and computer lab maintenance.
             </p>
           </div>
 
-          <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
             <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold">03</div>
-            <h3 class="font-bold text-slate-800 text-base md:text-lg">Software & Networking</h3>
+            <h3 class="font-bold text-slate-800 text-lg">Software & Networking</h3>
             <p class="text-xs text-slate-600 leading-relaxed">
               Operating system setups, firewall installations, structured LAN cabling, and academic portal configuration support.
             </p>
@@ -175,14 +129,14 @@
         </div>
       </section>
 
-      <!-- Customer Reviews Section -->
-      <section class="space-y-4 md:space-y-6 bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
+      <!-- Google Reviews Section -->
+      <section class="space-y-6 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-4">
           <div>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900">Freshtime Enterprises - Customer Reviews</h2>
+            <h2 class="text-xl font-bold text-slate-900">Freshtime Enterprises - Customer Reviews</h2>
             <p class="text-xs text-slate-500">Live feedback submitted by students, colleges, and university candidates.</p>
           </div>
-          <a href="https://g.page/r/CaUoZdd6ffFXEBM/review" target="_blank" class="w-full sm:w-auto text-center bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-900 font-bold px-4 py-2.5 rounded-xl text-xs shadow flex items-center justify-center gap-1.5 transition">
+          <a href="https://g.page/r/CaUoZdd6ffFXEBM/review" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-4 py-2 rounded-xl text-xs shadow flex items-center gap-1.5 transition">
             <span>Leave a Google Review</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
@@ -195,15 +149,15 @@
   </div>
 
   <!-- ================= VIEW 2: CHECK STATUS (#status) ================= -->
-  <div id="view-status" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-6 md:py-12 space-y-6 md:space-y-8">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-8 space-y-5">
+  <div id="view-status" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-12 space-y-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
       <div class="flex items-center gap-3">
-        <div class="p-2.5 bg-blue-100 text-blue-700 rounded-xl">
+        <div class="p-2 bg-blue-100 text-blue-700 rounded-lg">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
         <div>
-          <h2 class="text-lg md:text-xl font-bold text-slate-900">Check Technical Issue Status</h2>
-          <p class="text-xs text-slate-500">Search by Ticket ID, 12-Digit UTR, Mobile Number, or Login ID.</p>
+          <h2 class="text-xl font-bold text-slate-900">Check Technical Issue Status</h2>
+          <p class="text-xs text-slate-500">Search by Ticket ID, 12-Digit UTR, Mobile Number, or UUCMS Login ID.</p>
         </div>
       </div>
 
@@ -212,13 +166,13 @@
           type="text" 
           id="searchQuery" 
           required 
-          placeholder="Ticket ID, 12-Digit UTR, or Mobile" 
-          class="flex-1 border border-slate-300 rounded-xl p-3 bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+          placeholder="Enter Ticket ID, 12-Digit UTR, Mobile Number, or Login ID" 
+          class="flex-1 border border-slate-300 rounded-lg p-3 bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
         />
         <button 
           type="submit" 
           id="checkBtn" 
-          class="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-semibold px-6 py-3 rounded-xl text-sm shadow transition cursor-pointer"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg text-sm shadow transition cursor-pointer"
         >
           Check Status
         </button>
@@ -227,53 +181,53 @@
       <div id="statusResultBox" class="mt-4 hidden p-5 rounded-xl border"></div>
     </div>
 
-    <!-- Step by Step Guide -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-8 space-y-5">
+    <!-- HOW TO APPLY / STEP BY STEP GUIDE -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
       <div class="border-b pb-3">
         <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Step-by-Step Guide</span>
-        <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-0.5">How to Apply & Raise a Technical Grievance</h2>
+        <h2 class="text-xl font-bold text-slate-900 mt-0.5">How to Apply & Raise a Technical Grievance</h2>
         <p class="text-xs text-slate-500">Follow these simple steps to submit your portal issue for rapid resolution.</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">1</div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative">
+          <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">1</div>
           <h3 class="font-bold text-slate-800 text-sm">Select Classification</h3>
           <p class="text-[11px] text-slate-600 leading-relaxed">
-            Choose whether you are a Student, College, or University applicant and specify details.
+            Choose whether you are a Student/Candidate, College, or University applicant, and enter your full name and institution.
           </p>
         </div>
 
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">2</div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative">
+          <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">2</div>
           <h3 class="font-bold text-slate-800 text-sm">Provide Credentials</h3>
           <p class="text-[11px] text-slate-600 leading-relaxed">
-            Enter your portal Login ID, password, and recent OTP in secure encrypted hash format.
+            Enter your portal Login ID, password, and recent OTP in secure hash format. All data is permanently purged upon resolution.
           </p>
         </div>
 
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">3</div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative">
+          <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">3</div>
           <h3 class="font-bold text-slate-800 text-sm">Pay via Fresh Pay</h3>
           <p class="text-[11px] text-slate-600 leading-relaxed">
-            Scan the dynamic UPI QR code, copy the 12-digit UTR, and upload the payment proof.
+            Scan the dynamic UPI QR code or pay the applicable processing charge. Enter your 12-digit UTR number and upload your payment screenshot.
           </p>
         </div>
 
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <div class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">4</div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative">
+          <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xs shadow">4</div>
           <h3 class="font-bold text-slate-800 text-sm">Track & Resolve</h3>
           <p class="text-[11px] text-slate-600 leading-relaxed">
-            Track status directly using your Ticket ID or mobile number, receive resolved credentials.
+            Track your ticket status using your Ticket ID or mobile number, receive temporary credentials, and leave your feedback!
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ================= VIEW 3: STUDENT LOGIN (#student-login) ================= -->
-  <div id="view-student-login" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-6 md:py-12 space-y-6 md:space-y-8">
-    <div id="studentLoginBox" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 space-y-5">
+  <!-- ================= VIEW 3: STUDENT / RESPONDENT LOGIN (#student-login) ================= -->
+  <div id="view-student-login" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-12 space-y-8">
+    <div id="studentLoginBox" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 space-y-5">
       <div class="text-center">
         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
@@ -284,13 +238,13 @@
 
       <form onsubmit="handleStudentLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile / Email / UUCMS ID *</label>
-          <input type="text" id="studentIdentifier" required placeholder="Enter Mobile, Email, or UUCMS ID" class="w-full border border-slate-300 rounded-xl p-3 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile Number / Email / UUCMS ID *</label>
+          <input type="text" id="studentIdentifier" required placeholder="Enter Mobile, Email, or UUCMS ID" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <div id="studentLoginError" class="text-xs text-red-600 hidden font-medium text-center"></div>
 
-        <button type="submit" id="studentLoginBtn" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-semibold py-3 rounded-xl text-sm shadow cursor-pointer">
+        <button type="submit" id="studentLoginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm shadow cursor-pointer">
           View My Dashboard & Tickets
         </button>
       </form>
@@ -301,14 +255,14 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <span class="text-xs text-blue-600 font-bold uppercase tracking-wider">Student Console</span>
-          <h2 class="text-xl md:text-2xl font-bold text-slate-900" id="studentWelcomeTitle">My Grievance Tickets</h2>
+          <h2 class="text-2xl font-bold text-slate-900" id="studentWelcomeTitle">My Grievance Tickets</h2>
         </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <button type="button" onclick="navigate('complaint')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-bold px-4 py-2.5 rounded-xl shadow cursor-pointer flex items-center justify-center gap-1.5">
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="navigate('complaint')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-bold px-4 py-2 rounded-lg shadow cursor-pointer flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Ticket</span>
+            <span>Add New Ticket</span>
           </button>
-          <button type="button" onclick="handleStudentLogout()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-xl cursor-pointer">
+          <button type="button" onclick="handleStudentLogout()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold px-3 py-2 rounded-lg cursor-pointer">
             Log Out
           </button>
         </div>
@@ -319,43 +273,43 @@
   </div>
 
   <!-- ================= VIEW 4: RAISE COMPLAINT (#complaint) ================= -->
-  <div id="view-complaint" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-6 md:py-8 space-y-5">
+  <div id="view-complaint" class="page-view hidden max-w-4xl mx-auto w-full px-4 py-8 space-y-6">
     <div class="flex items-center justify-between pb-2 border-b">
       <div>
-        <h2 class="text-lg md:text-2xl font-bold text-slate-900">Technical Desk</h2>
-        <p class="text-xs text-slate-500">Step 1: Record details. Data is secured immediately.</p>
+        <h2 class="text-2xl font-bold text-slate-900">Freshtime Enterprises - Technical Desk</h2>
+        <p class="text-xs text-slate-500">Step 1: Enter your details. Data is recorded immediately before payment.</p>
       </div>
       <button type="button" onclick="navigate('home')" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-1.5 rounded-lg transition font-medium cursor-pointer">
-        &larr; Back
+        &larr; Back to Main Website
       </button>
     </div>
 
     <!-- Security Warning -->
-    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm">
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm">
       <div class="flex items-start">
-        <svg class="h-5 w-5 text-amber-500 mr-2.5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="h-6 w-6 text-amber-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
         <div>
-          <h3 class="text-xs font-bold text-amber-900 uppercase tracking-wider">Mandatory Security & Auto-Purge Notice</h3>
-          <p class="text-[11px] text-amber-800 mt-0.5">
-            Passwords & OTPs are stored in <strong>encrypted hash format</strong>. All submitted credentials are permanently purged immediately after resolution.
+          <h3 class="text-sm font-bold text-amber-900 uppercase tracking-wider">Mandatory Security & Auto-Purge Notice</h3>
+          <p class="text-xs text-amber-800 mt-1">
+            <strong>Important:</strong> All passwords and OTPs are entered and stored in <strong>encrypted hash format</strong>. After the resolution of the reported issue, all submitted credentials will be permanently purged.
           </p>
         </div>
       </div>
     </div>
 
     <!-- Form Card -->
-    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-5 md:p-8">
-      <form id="issueForm" onsubmit="handleInitialSubmitAndPay(event)" class="space-y-5">
+    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8">
+      <form id="issueForm" onsubmit="handleInitialSubmitAndPay(event)" class="space-y-6">
 
         <!-- 1. Category -->
         <div>
-          <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2.5">1. Applicant Classification</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">1. Applicant Classification</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Applicant Classification *</label>
-              <select id="userCategory" onchange="handleClassificationChange()" required class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <select id="userCategory" onchange="handleClassificationChange()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 <option value="" disabled selected>-- Select Classification --</option>
                 <option value="Student / Candidate">1. Student / Candidate</option>
                 <option value="College">2. College</option>
@@ -365,76 +319,76 @@
 
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Full Name of Applicant *</label>
-              <input type="text" id="applicantFullName" required placeholder="Enter Full Name" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="text" id="applicantFullName" required placeholder="Enter Full Name" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
 
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">College / University Name *</label>
-              <input type="text" id="institutionName" required placeholder="Enter College / University" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="text" id="institutionName" required placeholder="Enter College / University Name" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
           </div>
         </div>
 
         <!-- 2. Technical Details -->
         <div>
-          <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2.5">2. Technical Grievance Details</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">2. Technical Grievance Details</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Issue Category *</label>
-              <select id="issueCategory" onchange="updateProcessingFee()" required class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <select id="issueCategory" onchange="updateProcessingFee()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 <option value="" disabled selected>-- First Select Classification Above --</option>
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Error Description *</label>
-              <textarea id="issueDescription" rows="2" required placeholder="Describe the error code or barrier faced..." class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+              <textarea id="issueDescription" rows="2" required placeholder="Describe the error code or barrier faced..." class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
             </div>
           </div>
         </div>
 
         <!-- 3. Resolution Credentials -->
         <div>
-          <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-1">3. Portal Resolution Credentials (Masked & Encrypted)</h3>
-          <p class="text-[11px] text-slate-500 mb-2.5">Details entered in hash format and encrypted before transmission.</p>
+          <h3 class="text-sm font-semibold text-slate-800 mb-1">3. Portal Resolution Credentials (Masked & Encrypted)</h3>
+          <p class="text-[11px] text-slate-500 mb-3">Login details are entered in hash format and encrypted before transmission.</p>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Login ID / Register No. *</label>
-              <input type="text" id="loginId" required placeholder="e.g. U03XX21S0000" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="text" id="loginId" required placeholder="e.g. U03XX21S0000" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
 
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Password * (Entered in Hash Mask)</label>
-              <input type="password" id="portalPassword" required placeholder="••••••••••••" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="password" id="portalPassword" required placeholder="••••••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
 
             <div>
-              <label class="block text-xs font-medium text-slate-700 mb-1">Recent OTP (if applicable)</label>
-              <input type="password" id="otpValue" placeholder="••••••" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <label class="block text-xs font-medium text-slate-700 mb-1">Recent OTP (if applicable, Entered in Hash Mask)</label>
+              <input type="password" id="otpValue" placeholder="••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
 
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Contact Phone Number *</label>
-              <input type="tel" id="contactNumber" pattern="[0-9]{10}" required placeholder="10-digit mobile number" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="tel" id="contactNumber" pattern="[0-9]{10}" required placeholder="10-digit mobile number" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
 
             <div class="md:col-span-2">
               <label class="block text-xs font-medium text-slate-700 mb-1">Email Address *</label>
-              <input type="email" id="contactEmail" required placeholder="name@domain.com" class="w-full border border-slate-300 rounded-xl p-3 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <input type="email" id="contactEmail" required placeholder="name@domain.com" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
           </div>
         </div>
 
         <!-- 4. Fee Overview -->
         <div>
-          <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">4. Resolution Fee</h3>
-          <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">4. Grievance-Wise Resolution Fee</h3>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span class="text-xs font-semibold text-blue-900 uppercase tracking-wide">Applicable Charge</span>
+              <span class="text-xs font-semibold text-blue-900 uppercase tracking-wide">Applicable Processing Charge</span>
               <p id="feeBreakdownText" class="text-xs text-blue-700 mt-0.5">Please select your classification and issue type above.</p>
             </div>
-            <div class="flex items-baseline gap-1 bg-white px-4 py-2 rounded-xl border border-blue-200 shadow-sm self-start sm:self-auto">
+            <div class="flex items-baseline gap-1 bg-white px-4 py-2 rounded-lg border border-blue-200 shadow-sm self-start sm:self-auto">
               <span class="text-xs font-bold text-slate-500">₹</span>
               <span id="displayAmount" class="text-2xl font-extrabold text-blue-700">0.00</span>
               <span class="text-xs text-slate-500 ml-1">INR</span>
@@ -444,7 +398,7 @@
         </div>
 
         <!-- SUBMIT & PROCEED TO PAY -->
-        <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-4 px-6 rounded-2xl transition shadow-lg text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer">
+        <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 px-6 rounded-xl transition shadow text-base flex items-center justify-center gap-2 cursor-pointer">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           <span>Submit & Proceed to Pay</span>
         </button>
@@ -453,50 +407,50 @@
   </div>
 
   <!-- ================= VIEW 5: PAY & UPLOAD PROOF PAGE (#pay) ================= -->
-  <div id="view-pay" class="page-view hidden max-w-xl mx-auto w-full px-4 py-6 md:py-8 space-y-6">
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-5 md:p-8 space-y-5">
+  <div id="view-pay" class="page-view hidden max-w-2xl mx-auto w-full px-4 py-8 space-y-6">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-8 space-y-5">
       
       <div class="flex items-center justify-between border-b pb-4">
-        <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-sm tracking-wider shadow">FP</div>
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-base tracking-wider">FP</div>
           <div>
-            <h3 class="text-base md:text-lg font-extrabold text-slate-900 leading-none">FRESH PAY</h3>
-            <span class="text-[11px] text-emerald-700 font-semibold">Freshtime Payment Desk</span>
+            <h3 class="text-lg font-extrabold text-slate-900 leading-none">FRESH PAY</h3>
+            <span class="text-xs text-emerald-700 font-semibold">Payment Gateway • Freshtime Enterprises</span>
           </div>
         </div>
-        <span class="text-[11px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">Ticket Saved</span>
+        <span class="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">Ticket Saved</span>
       </div>
 
       <div class="bg-slate-900 text-white p-4 rounded-xl flex items-center justify-between">
         <div>
-          <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Payable Fee</span>
-          <span id="fpPayableAmount" class="text-xl md:text-2xl font-black text-emerald-400">₹0.00</span>
+          <span class="text-xs text-slate-400 block uppercase">Payable Fee</span>
+          <span id="fpPayableAmount" class="text-2xl font-black text-emerald-400">₹0.00</span>
         </div>
         <div class="text-right">
-          <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Reference</span>
-          <span id="fpPayTicketId" class="font-mono font-bold text-amber-300 text-sm md:text-base"></span>
+          <span class="text-xs text-slate-400 block">Ticket Reference</span>
+          <span id="fpPayTicketId" class="font-mono font-bold text-amber-300"></span>
         </div>
       </div>
 
       <!-- Dynamic QR Code Card -->
-      <div class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-center space-y-3">
+      <div class="bg-emerald-50 border-2 border-emerald-500/40 rounded-2xl p-4 text-center space-y-3">
         <span class="text-xs font-bold text-emerald-900 uppercase tracking-wide block">Scan with Any UPI App to Pay</span>
         
-        <div class="bg-white p-2.5 rounded-2xl border border-emerald-200 inline-block shadow-sm">
-          <img id="dynamicUpiQr" src="" alt="Dynamic UPI QR" class="w-44 h-44 md:w-48 md:h-48 mx-auto" />
+        <div class="bg-white p-2.5 rounded-xl border border-emerald-200 inline-block shadow-sm">
+          <img id="dynamicUpiQr" src="" alt="FRESH PAY Dynamic UPI QR" class="w-48 h-48 mx-auto" />
         </div>
 
         <div class="space-y-1">
           <div class="text-xs font-mono font-bold text-slate-800 flex items-center justify-center gap-1.5">
             <span>UPI ID:</span>
-            <span class="bg-white px-2 py-0.5 rounded-lg border border-emerald-300 text-emerald-800 font-extrabold select-all">freshtime.blr18@ybl</span>
+            <span class="bg-white px-2 py-0.5 rounded border text-emerald-800 font-extrabold select-all">freshtime.blr18@ybl</span>
           </div>
           <p class="text-[11px] text-slate-600">Scan & pay the exact fee shown above.</p>
         </div>
       </div>
 
       <!-- Proof Submission Form -->
-      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
         <h4 class="text-xs font-bold text-slate-900 uppercase">Payment Verification Details (Mandatory)</h4>
         
         <div>
@@ -508,13 +462,13 @@
             pattern="[0-9]{12}" 
             required 
             placeholder="e.g. 425689102345" 
-            class="w-full border border-slate-300 rounded-xl p-3 text-sm font-mono bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            class="w-full border border-slate-300 rounded-lg p-2.5 text-xs font-mono bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
           />
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Payment Method Used *</label>
-          <select id="fpPaymentModeSelect" class="w-full border border-slate-300 rounded-xl p-3 text-xs bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          <select id="fpPaymentModeSelect" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
             <option value="PhonePe">PhonePe</option>
             <option value="Google Pay (GPay)">Google Pay (GPay)</option>
             <option value="Paytm UPI">Paytm UPI</option>
@@ -533,7 +487,7 @@
             id="fpScreenshotInput" 
             accept="image/*" 
             required 
-            class="w-full border border-slate-300 rounded-xl p-2 text-xs bg-white text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+            class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-white text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
           />
         </div>
       </div>
@@ -542,24 +496,25 @@
         type="button" 
         id="fpSubmitPaymentBtn" 
         onclick="confirmAndSubmitPaymentProof()" 
-        class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
       >
         <span>Confirm Payment & Update Ticket</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
       </button>
 
-      <div class="text-center pt-1">
+      <div class="text-center pt-2">
         <button type="button" onclick="navigate('status')" class="text-xs text-slate-500 hover:text-slate-800 underline">
-          Skip payment for now (Upload proof later)
+          Skip payment for now (I will upload proof later)
         </button>
       </div>
     </div>
   </div>
 
   <!-- ================= VIEW 6: ADMIN PORTAL (#admin) ================= -->
-  <div id="view-admin" class="page-view hidden max-w-7xl mx-auto w-full px-4 py-6 md:py-8 space-y-6">
+  <div id="view-admin" class="page-view hidden max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
+    
     <!-- Admin Login Card -->
-    <div id="adminLoginBox" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 space-y-5">
+    <div id="adminLoginBox" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 space-y-5">
       <div class="text-center">
         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -571,17 +526,17 @@
       <form onsubmit="handleAdminLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Username</label>
-          <input type="text" id="adminUsername" required placeholder="admin" class="w-full border border-slate-300 rounded-xl p-3 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <input type="text" id="adminUsername" required placeholder="admin" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
-          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded-xl p-3 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
         </div>
 
         <div id="adminLoginError" class="text-xs text-red-600 hidden font-medium text-center"></div>
 
-        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-semibold py-3 rounded-xl text-sm shadow cursor-pointer">
+        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-lg text-sm shadow cursor-pointer">
           Sign In to Console
         </button>
       </form>
@@ -591,80 +546,83 @@
     <div id="adminDashboardBox" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div>
-          <h2 class="text-xl md:text-2xl font-bold text-slate-900">Grievance Control Center</h2>
-          <p class="text-xs text-slate-500">Realtime ticket operations & database sync.</p>
+          <h2 class="text-2xl font-bold text-slate-900">Grievance Control Center</h2>
+          <p class="text-xs text-slate-500">Separated views for Pending to Solve, Completed, and Rejected tickets.</p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-          <button type="button" id="toggleHashBtn" onclick="toggleCredentialDecryption()" class="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition flex items-center justify-center gap-1.5 cursor-pointer">
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- HASH DECRYPTION TOGGLE BUTTON -->
+          <button type="button" id="toggleHashBtn" onclick="toggleCredentialDecryption()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow transition flex items-center gap-1.5 cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-            <span id="hashToggleText">Decrypt Hash</span>
+            <span id="hashToggleText">Convert Hash to Real Data</span>
           </button>
 
-          <button type="button" onclick="loadUnifiedRecords()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow transition flex items-center gap-1 cursor-pointer">
+          <button type="button" onclick="loadUnifiedRecords()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition flex items-center gap-1 cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            Refresh
+            Refresh Records
           </button>
-          <button type="button" onclick="exportToCSV()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow transition flex items-center gap-1 cursor-pointer">
+          <button type="button" onclick="exportToCSV()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition flex items-center gap-1 cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            Export
+            Export CSV
           </button>
-          <button type="button" onclick="handleAdminLogout()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow transition cursor-pointer">
+          <button type="button" onclick="handleAdminLogout()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition cursor-pointer">
             Sign Out
           </button>
         </div>
       </div>
 
-      <!-- Category Filter Tabs -->
-      <div class="flex overflow-x-auto gap-2 border-b border-slate-200 pb-2 no-scrollbar">
-        <button type="button" onclick="switchAdminCategory('pending')" id="tab-btn-pending" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow whitespace-nowrap">
-          <span>Tickets to Solve</span>
-          <span id="badge-count-pending" class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]">0</span>
+      <!-- SEPARATED CATEGORY TABS -->
+      <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
+        <button type="button" onclick="switchAdminCategory('pending')" id="tab-btn-pending" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow">
+          <span>Tickets to Solve (Pending)</span>
+          <span id="badge-count-pending" class="bg-white/20 px-2 py-0.5 rounded-full text-[11px]">0</span>
         </button>
-        <button type="button" onclick="switchAdminCategory('completed')" id="tab-btn-completed" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300 whitespace-nowrap">
-          <span>Completed</span>
-          <span id="badge-count-completed" class="bg-slate-300 px-2 py-0.5 rounded-full text-[10px]">0</span>
+        <button type="button" onclick="switchAdminCategory('completed')" id="tab-btn-completed" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300">
+          <span>Completed Tickets</span>
+          <span id="badge-count-completed" class="bg-slate-300 px-2 py-0.5 rounded-full text-[11px]">0</span>
         </button>
-        <button type="button" onclick="switchAdminCategory('rejected')" id="tab-btn-rejected" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300 whitespace-nowrap">
-          <span>Rejected</span>
-          <span id="badge-count-rejected" class="bg-slate-300 px-2 py-0.5 rounded-full text-[10px]">0</span>
+        <button type="button" onclick="switchAdminCategory('rejected')" id="tab-btn-rejected" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300">
+          <span>Rejected Tickets</span>
+          <span id="badge-count-rejected" class="bg-slate-300 px-2 py-0.5 rounded-full text-[11px]">0</span>
         </button>
-        <button type="button" onclick="switchAdminCategory('all')" id="tab-btn-all" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300 whitespace-nowrap">
+        <button type="button" onclick="switchAdminCategory('all')" id="tab-btn-all" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300">
           <span>All Tickets</span>
-          <span id="badge-count-all" class="bg-slate-300 px-2 py-0.5 rounded-full text-[10px]">0</span>
+          <span id="badge-count-all" class="bg-slate-300 px-2 py-0.5 rounded-full text-[11px]">0</span>
         </button>
       </div>
 
-      <!-- Quick Stats -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <!-- Quick Stats Overview Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-xl border border-slate-200">
-          <span class="text-[11px] text-slate-500 font-semibold block">Total Unique</span>
-          <div id="statTotalTickets" class="text-xl font-black text-slate-900 mt-1">0</div>
+          <span class="text-xs text-slate-500 font-semibold">Total Unique</span>
+          <div id="statTotalTickets" class="text-2xl font-black text-slate-900 mt-1">0</div>
         </div>
         <div class="bg-white p-4 rounded-xl border border-blue-200 bg-blue-50/40">
-          <span class="text-[11px] text-blue-800 font-semibold block">Active to Solve</span>
-          <div id="statToSolveCount" class="text-xl font-black text-blue-700 mt-1">0</div>
+          <span class="text-xs text-blue-800 font-semibold">Active to Solve</span>
+          <div id="statToSolveCount" class="text-2xl font-black text-blue-700 mt-1">0</div>
         </div>
         <div class="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/40">
-          <span class="text-[11px] text-emerald-800 font-semibold block">Completed</span>
-          <div id="statCompletedCount" class="text-xl font-black text-emerald-700 mt-1">0</div>
+          <span class="text-xs text-emerald-800 font-semibold">Completed / Resolved</span>
+          <div id="statCompletedCount" class="text-2xl font-black text-emerald-700 mt-1">0</div>
         </div>
         <div class="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/40">
-          <span class="text-[11px] text-rose-800 font-semibold block">Rejected</span>
-          <div id="statRejectedCount" class="text-xl font-black text-rose-700 mt-1">0</div>
+          <span class="text-xs text-rose-800 font-semibold">Rejected</span>
+          <div id="statRejectedCount" class="text-2xl font-black text-rose-700 mt-1">0</div>
         </div>
       </div>
 
-      <!-- Search Input -->
-      <input 
-        type="text" 
-        id="tableSearchInput" 
-        onkeyup="filterSheetTable()" 
-        placeholder="Filter by Ticket ID, Full Name, Login ID, UTR, or Mobile..." 
-        class="w-full border border-slate-300 rounded-xl p-3 text-xs bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"
-      />
+      <!-- Search Bar -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input 
+          type="text" 
+          id="tableSearchInput" 
+          onkeyup="filterSheetTable()" 
+          placeholder="Filter current view by Ticket ID, Full Name, Login ID, UTR, or Mobile..." 
+          class="w-full border border-slate-300 rounded-lg p-2.5 text-xs bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
 
-      <!-- Table View -->
+      <!-- Simplified Realtime Table -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="overflow-x-auto max-h-[600px]">
           <table class="w-full text-left text-xs text-slate-700">
@@ -675,7 +633,7 @@
                 <th class="p-3">Applicant Name</th>
                 <th class="p-3">Classification</th>
                 <th class="p-3">Issue Category</th>
-                <th class="p-3 text-center">Action</th>
+                <th class="p-3 text-center">Full Details</th>
               </tr>
             </thead>
             <tbody id="sheetTableBody" class="divide-y divide-slate-200">
@@ -703,12 +661,12 @@
 
       <div>
         <label class="block text-xs font-semibold text-slate-700 mb-1">Ticket Reference</label>
-        <input type="text" id="editTicketDisplay" disabled class="w-full border border-slate-200 rounded-xl p-2.5 bg-slate-100 text-xs font-mono font-bold text-blue-700" />
+        <input type="text" id="editTicketDisplay" disabled class="w-full border border-slate-200 rounded-lg p-2 bg-slate-100 text-xs font-mono font-bold text-blue-700" />
       </div>
 
       <div>
         <label class="block text-xs font-semibold text-slate-700 mb-1">Status Classification *</label>
-        <select id="editStatusSelect" class="w-full border border-slate-300 rounded-xl p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <select id="editStatusSelect" class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none">
           <option value="Payment Pending / Unpaid">Payment Pending / Unpaid</option>
           <option value="Payment Verification Pending">Payment Verification Pending</option>
           <option value="Payment Verified - In Progress">Payment Verified - In Progress</option>
@@ -721,19 +679,19 @@
 
       <div>
         <label class="block text-xs font-semibold text-slate-700 mb-1">Technician Remarks (Visible to Candidate)</label>
-        <textarea id="editRemarksInput" rows="3" placeholder="Enter resolution notes, temporary password, or status update..." class="w-full border border-slate-300 rounded-xl p-2.5 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        <textarea id="editRemarksInput" rows="3" placeholder="Enter resolution notes, temporary password, or status update..." class="w-full border border-slate-300 rounded-lg p-2 text-xs bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
       </div>
 
       <div class="flex gap-2 pt-2">
-        <button type="button" onclick="closeEditModal()" class="w-1/2 py-2.5 border border-slate-300 text-slate-700 rounded-xl text-xs font-semibold cursor-pointer">Cancel</button>
-        <button type="button" onclick="submitStatusUpdate()" id="saveStatusBtn" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow cursor-pointer">Save Update</button>
+        <button type="button" onclick="closeEditModal()" class="w-1/2 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer">Cancel</button>
+        <button type="button" onclick="submitStatusUpdate()" id="saveStatusBtn" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow cursor-pointer">Save Update</button>
       </div>
     </div>
   </div>
 
   <!-- POPUP MODAL: TICKET FULL DETAILS -->
   <div id="fullDetailsModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-5 md:p-6 shadow-2xl space-y-4 border border-slate-200 overflow-y-auto max-h-[90vh]">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 border border-slate-200 overflow-y-auto max-h-[90vh]">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
           <h3 class="text-base font-bold text-slate-900">Ticket Full Details</h3>
@@ -742,12 +700,13 @@
         <button type="button" onclick="closeFullDetailsModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
       </div>
 
-      <div id="modalDetailsBody" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+      <div id="modalDetailsBody" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
         <!-- Dynamic details loaded here -->
       </div>
 
-      <div id="modalActionsFooter" class="pt-3 border-t flex flex-wrap items-center justify-between gap-2">
-        <!-- Injected dynamically -->
+      <!-- Action Buttons Inside Modal Footer -->
+      <div id="modalActionsFooter" class="pt-4 border-t flex flex-wrap items-center justify-between gap-2">
+        <!-- Action buttons injected dynamically -->
       </div>
     </div>
   </div>
@@ -762,7 +721,7 @@
         </div>
         <button type="button" onclick="closeImageModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
       </div>
-      <div class="overflow-auto max-h-[70vh] flex justify-center bg-slate-100 rounded-xl p-2 border border-slate-200">
+      <div class="overflow-auto max-h-[70vh] flex justify-center bg-slate-100 rounded-lg p-2 border border-slate-200">
         <img id="imageProofDisplay" src="" alt="Payment Proof" class="max-w-full rounded shadow" />
       </div>
     </div>
@@ -778,7 +737,7 @@
       <p class="text-xs text-slate-600 leading-relaxed text-left bg-slate-50 p-3.5 rounded-xl border border-slate-200">
         This is a <strong>nominal initial fee of ₹80.00</strong> for Other Issue. The actual fee details will be informed or enabled to pay in the portal after our technical team reviews, finds, and clarifies your specific problem.
       </p>
-      <button type="button" onclick="closeOtherIssueModal()" class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 text-sm font-semibold transition cursor-pointer">
+      <button type="button" onclick="closeOtherIssueModal()" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 text-sm font-semibold transition cursor-pointer">
         I Understand & Proceed
       </button>
     </div>
@@ -793,7 +752,7 @@
       <h3 class="text-lg font-bold text-slate-900">Grievance & Proof Logged!</h3>
       <p class="text-xs text-slate-600">Your ticket details and payment proof have been safely updated.</p>
 
-      <div class="bg-slate-50 p-3.5 rounded-xl border text-left text-xs space-y-1.5">
+      <div class="bg-slate-50 p-3 rounded-lg border text-left text-xs space-y-1.5">
         <div><strong>Ticket ID:</strong> <span id="resTicketId" class="font-mono text-blue-600 font-bold"></span></div>
         <div><strong>Applicant:</strong> <span id="resApplicantName" class="font-bold text-slate-800"></span></div>
         <div><strong>UTR Number:</strong> <span id="resUtrNumber" class="font-mono font-semibold text-slate-800"></span></div>
@@ -801,46 +760,76 @@
         <div><strong>Status:</strong> <span class="text-emerald-700 font-bold">Payment Verified - In Progress</span></div>
       </div>
 
-      <a id="whatsappShareBtn" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2 transition">
+      <a id="whatsappShareBtn" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-xs font-bold shadow flex items-center justify-center gap-2 transition">
         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         <span>Connect with Us on WhatsApp</span>
       </a>
 
       <div class="flex gap-2">
-        <button type="button" onclick="navigate('home'); resetAndClose();" class="w-1/2 py-2.5 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold cursor-pointer">Return Home</button>
-        <button type="button" onclick="resetAndClose()" class="w-1/2 bg-blue-600 text-white py-2.5 rounded-xl hover:bg-blue-700 text-xs font-semibold cursor-pointer">Done</button>
+        <button type="button" onclick="navigate('home'); resetAndClose();" class="w-1/2 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold cursor-pointer">Return Home</button>
+        <button type="button" onclick="resetAndClose()" class="w-1/2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 text-xs font-semibold cursor-pointer">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- FLOATING WHATSAPP BUTTON (Raised on mobile to avoid overlapping the bottom tab bar) -->
-  <a href="https://wa.me/917406227904?text=Hello%20Freshtime%20Enterprises,%20I%20need%20assistance%20with%20my%20UUCMS%20Portal." target="_blank" class="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white p-3 md:p-3.5 rounded-full shadow-2xl transition hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer">
-    <svg class="w-6 h-6 md:w-7 md:h-7 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-  </a>
+  <!-- ================= FLOATING AI CHAT SUPPORT WIDGET ================= -->
+  <div id="aiChatWidget" class="fixed bottom-6 right-24 z-50 font-sans">
+    <!-- Toggle Chat Button -->
+    <button id="aiChatToggleBtn" onclick="toggleAIChat()" class="bg-indigo-600 hover:bg-indigo-700 text-white p-3.5 rounded-full shadow-2xl transition hover:scale-110 flex items-center justify-center cursor-pointer">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+      </svg>
+    </button>
 
-  <!-- ================= MOBILE APP BOTTOM NAVIGATION BAR ================= -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-slate-900/95 backdrop-blur-md border-t border-slate-800 flex items-center justify-around py-2 px-1 text-[11px] shadow-2xl">
-    <button type="button" onclick="navigate('home')" id="tab-home" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition py-1 px-3">
-      <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-      <span>Home</span>
-    </button>
-    <button type="button" onclick="navigate('status')" id="tab-status" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition py-1 px-3">
-      <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-      <span>Status</span>
-    </button>
-    <button type="button" onclick="navigate('student-login')" id="tab-student-login" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white transition py-1 px-3">
-      <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-      <span>Dashboard</span>
-    </button>
-    <button type="button" onclick="navigate('complaint')" id="tab-complaint" class="flex flex-col items-center gap-1 text-amber-400 hover:text-amber-300 font-bold transition py-1 px-3">
-      <div class="bg-amber-500 text-slate-900 rounded-full p-1 -mt-3 shadow-md">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+    <!-- Chat Dialog Window -->
+    <div id="aiChatBox" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[480px]">
+      <!-- Header -->
+      <div class="bg-indigo-700 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+          <div>
+            <h3 class="font-bold text-sm leading-tight">Freshtime AI Support</h3>
+            <p class="text-[11px] text-indigo-200">Instant Issue & Ticket Assistant</p>
+          </div>
+        </div>
+        <button onclick="toggleAIChat()" class="text-indigo-200 hover:text-white text-lg font-bold cursor-pointer">&times;</button>
       </div>
-      <span class="text-[10px]">Raise Issue</span>
-    </button>
+
+      <!-- Messages Stream -->
+      <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-50 text-xs"></div>
+
+      <!-- Action Shortcut Chips -->
+      <div class="px-3 py-2 bg-slate-100 border-t border-slate-200 flex gap-2">
+        <button type="button" onclick="triggerChatAction('create')" class="bg-white border border-slate-300 text-slate-700 px-2.5 py-1 rounded-full text-[11px] font-semibold hover:bg-indigo-50 hover:border-indigo-300 transition cursor-pointer">
+          ➕ Raise Ticket
+        </button>
+        <button type="button" onclick="triggerChatAction('status')" class="bg-white border border-slate-300 text-slate-700 px-2.5 py-1 rounded-full text-[11px] font-semibold hover:bg-indigo-50 hover:border-indigo-300 transition cursor-pointer">
+          🔍 Check Status
+        </button>
+      </div>
+
+      <!-- User Input Bar -->
+      <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2">
+        <input 
+          type="text" 
+          id="aiChatInput" 
+          placeholder="Type message or ticket ID..." 
+          autocomplete="off" 
+          class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        />
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer">
+          Send
+        </button>
+      </form>
+    </div>
   </div>
 
-  <!-- Footer (Visible normally on desktop & mobile) -->
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/917406227904?text=Hello%20Freshtime%20Enterprises,%20I%20need%20assistance%20with%20my%20UUCMS%20Portal." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl transition hover:scale-110 flex items-center justify-center cursor-pointer">
+    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <!-- Footer -->
   <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 space-y-4 text-center md:text-left">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -950,21 +939,8 @@
     let currentAdminTab = "pending";
 
     // ========================================================
-    // CLIENT-SIDE ROUTER & MOBILE TAB SYNC
+    // CLIENT-SIDE ROUTER
     // ========================================================
-    function updateMobileTabBar(activeRoute) {
-      const tabs = ['home', 'status', 'student-login', 'complaint'];
-      tabs.forEach(t => {
-        const el = document.getElementById(`tab-${t}`);
-        if (!el) return;
-        if (t === activeRoute) {
-          el.classList.add('tab-active');
-        } else {
-          el.classList.remove('tab-active');
-        }
-      });
-    }
-
     function navigate(route, params = "") {
       const targetHash = params ? `#${route}?${params}` : `#${route}`;
       if (window.location.hash !== targetHash) {
@@ -979,7 +955,6 @@
       const urlParams = new URLSearchParams(queryString || "");
 
       document.querySelectorAll(".page-view").forEach(el => el.classList.add("hidden"));
-      updateMobileTabBar(route);
 
       switch(route) {
         case "complaint":
@@ -1446,7 +1421,7 @@
         if (isResolved) {
           if (foundTicket.feedbackRating) {
             feedbackFormHtml = `
-              <div class="mt-4 pt-3 border-t border-slate-200 bg-emerald-50 p-3 rounded-xl text-emerald-800">
+              <div class="mt-4 pt-3 border-t border-slate-200 bg-emerald-50 p-3 rounded-lg text-emerald-800">
                 <span class="font-bold text-xs">Feedback Submitted:</span>
                 <span class="text-amber-500 font-bold ml-1">${'★'.repeat(foundTicket.feedbackRating)}</span>
                 <p class="text-xs italic mt-0.5">"${foundTicket.feedbackComment || 'No comment provided'}"</p>
@@ -1455,39 +1430,39 @@
           } else {
             feedbackFormHtml = `
               <div class="mt-4 pt-3 border-t border-slate-200 bg-blue-50 p-3 rounded-xl space-y-2" id="feedbackContainer">
-                <span class="font-bold text-xs text-blue-900 block">Your Issue is Resolved! Rate Technical Support:</span>
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <select id="userFeedbackRating" class="border border-blue-300 rounded-lg p-2 text-xs bg-white">
+                <span class="font-bold text-xs text-blue-900 block">Your Issue is Resolved! Please Rate Our Technical Support:</span>
+                <div class="flex items-center gap-2">
+                  <select id="userFeedbackRating" class="border border-blue-300 rounded p-1 text-xs bg-white">
                     <option value="5">★★★★★ (5/5 Excellent)</option>
                     <option value="4">★★★★☆ (4/5 Good)</option>
                     <option value="3">★★★☆☆ (3/5 Average)</option>
                     <option value="2">★★☆☆☆ (2/5 Needs Improvement)</option>
                     <option value="1">★☆☆☆☆ (1/5 Poor)</option>
                   </select>
-                  <input type="text" id="userFeedbackComment" placeholder="Write feedback or review..." class="flex-1 border border-blue-300 rounded-lg p-2 text-xs bg-white" />
-                  <button type="button" onclick="submitRespondentFeedback('${foundTicket.ticketId}', '${foundTicket.fbKey || ''}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer">Submit</button>
+                  <input type="text" id="userFeedbackComment" placeholder="Write feedback or review..." class="flex-1 border border-blue-300 rounded p-1 text-xs bg-white" />
+                  <button type="button" onclick="submitRespondentFeedback('${foundTicket.ticketId}', '${foundTicket.fbKey || ''}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3 py-1 rounded cursor-pointer">Submit</button>
                 </div>
               </div>
             `;
           }
         }
 
-        box.className = "mt-4 p-5 rounded-2xl border text-xs bg-slate-50 border-slate-200 space-y-1.5";
+        box.className = "mt-4 p-5 rounded-xl border text-xs bg-slate-50 border-slate-200";
         box.innerHTML = `
           <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-200">
             <span class="font-mono font-bold text-slate-800 text-sm">${foundTicket.ticketId}</span>
             <span class="px-2.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">${foundTicket.status}</span>
           </div>
-          <p><strong>Applicant:</strong> ${foundTicket.applicantName || foundTicket.loginId}</p>
-          <p><strong>Classification:</strong> ${foundTicket.category}</p>
-          <p><strong>Issue:</strong> ${foundTicket.issue}</p>
-          <p><strong>UTR Number:</strong> <span class="font-mono font-bold text-slate-700">${foundTicket.utrNumber || 'Under Review'}</span></p>
-          <p><strong>Status / Remarks:</strong> ${foundTicket.remarks}</p>
+          <p class="mt-1"><strong>Applicant:</strong> ${foundTicket.applicantName || foundTicket.loginId}</p>
+          <p class="mt-1"><strong>Classification:</strong> ${foundTicket.category}</p>
+          <p class="mt-1"><strong>Issue:</strong> ${foundTicket.issue}</p>
+          <p class="mt-1"><strong>UTR Number:</strong> <span class="font-mono font-bold text-slate-700">${foundTicket.utrNumber || 'Under Review'}</span></p>
+          <p class="mt-1"><strong>Status / Remarks:</strong> ${foundTicket.remarks}</p>
           ${actionAlert}
           ${feedbackFormHtml}
         `;
       } else {
-        box.className = "mt-4 p-5 rounded-2xl border bg-red-50 border-red-200 text-xs text-red-700";
+        box.className = "mt-4 p-5 rounded-xl border bg-red-50 border-red-200 text-xs text-red-700";
         box.innerHTML = `No record found for <strong>${query}</strong>. Please check your reference number.`;
       }
 
@@ -1522,7 +1497,7 @@
       } catch(e) {}
 
       document.getElementById('feedbackContainer').innerHTML = `
-        <span class="text-xs font-bold text-emerald-700">Thank you! Your feedback has been recorded successfully.</span>
+        <span class="text-xs font-bold text-emerald-700">Thank you! Your feedback has been recorded successfully and synced to Freshtime Enterprises profile.</span>
       `;
       loadPublicReviews();
     }
@@ -1561,7 +1536,7 @@
       document.getElementById("studentWelcomeTitle").innerText = `My Tickets (${session})`;
 
       const listDiv = document.getElementById("studentTicketsList");
-      listDiv.innerHTML = `<div class="p-6 bg-white rounded-2xl text-center text-xs text-slate-400">Loading your tickets...</div>`;
+      listDiv.innerHTML = `<div class="p-6 bg-white rounded-xl text-center text-xs text-slate-400">Loading your tickets...</div>`;
 
       let matchedTickets = [];
       if (ticketsRef) {
@@ -1585,9 +1560,9 @@
 
       if (matchedTickets.length === 0) {
         listDiv.innerHTML = `
-          <div class="p-6 bg-white rounded-2xl text-center text-xs text-slate-500 space-y-3">
+          <div class="p-6 bg-white rounded-xl text-center text-xs text-slate-500 space-y-3">
             <p>No grievance tickets found for <strong>${session}</strong>.</p>
-            <button onclick="navigate('complaint')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs shadow cursor-pointer">Raise a New Ticket Now</button>
+            <button onclick="navigate('complaint')" class="bg-blue-600 hover:bg-blue-750 text-white font-bold px-5 py-2.5 rounded-lg text-xs shadow cursor-pointer">Raise a New Ticket Now</button>
           </div>
         `;
         return;
@@ -1610,16 +1585,16 @@
             feedbackBlock = `
               <div class="mt-3 pt-3 border-t border-slate-100 space-y-2" id="dashFeedback-${t.ticketId}">
                 <span class="text-xs font-bold text-blue-900 block">Rate this resolved ticket:</span>
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <select id="dashRating-${t.ticketId}" class="border rounded-lg p-2 text-xs bg-white">
+                <div class="flex items-center gap-2">
+                  <select id="dashRating-${t.ticketId}" class="border rounded p-1 text-xs bg-white">
                     <option value="5">★★★★★ (5/5)</option>
                     <option value="4">★★★★☆ (4/5)</option>
                     <option value="3">★★★☆☆ (3/5)</option>
                     <option value="2">★★☆☆☆ (2/5)</option>
                     <option value="1">★☆☆☆☆ (1/5)</option>
                   </select>
-                  <input type="text" id="dashComment-${t.ticketId}" placeholder="Review comment..." class="flex-1 border rounded-lg p-2 text-xs bg-white" />
-                  <button type="button" onclick="submitDashboardFeedback('${t.ticketId}', '${t.fbKey || ''}')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Submit</button>
+                  <input type="text" id="dashComment-${t.ticketId}" placeholder="Review comment..." class="flex-1 border rounded p-1 text-xs bg-white" />
+                  <button type="button" onclick="submitDashboardFeedback('${t.ticketId}', '${t.fbKey || ''}')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded cursor-pointer">Submit</button>
                 </div>
               </div>
             `;
@@ -1627,7 +1602,7 @@
         }
 
         return `
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-mono font-bold text-sm text-blue-700">${t.ticketId}</span>
               <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${isUnpaid ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${t.status}</span>
@@ -1638,7 +1613,7 @@
             <p class="text-xs text-slate-500"><strong>Remarks:</strong> ${t.remarks}</p>
             ${isUnpaid ? `
               <div class="pt-2">
-                <button onclick="navigate('pay', 'ticket=${t.ticketId}&amount=${t.amount}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow cursor-pointer">Upload Fee Proof Now &rarr;</button>
+                <button onclick="navigate('pay', 'ticket=${t.ticketId}&amount=${t.amount}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow cursor-pointer">Upload Fee Proof Now &rarr;</button>
               </div>
             ` : ''}
             ${feedbackBlock}
@@ -1674,7 +1649,7 @@
       } catch(e) {}
 
       document.getElementById(`dashFeedback-${ticketId}`).innerHTML = `
-        <span class="text-xs font-bold text-emerald-700">Thank you! Your feedback has been saved.</span>
+        <span class="text-xs font-bold text-emerald-700">Thank you! Your feedback has been saved and added to Freshtime Enterprises profile.</span>
       `;
       loadPublicReviews();
     }
@@ -1711,11 +1686,11 @@
       const toggleBtn = document.getElementById('toggleHashBtn');
 
       if (areCredentialsDecrypted) {
-        btnText.innerText = "Hide Real Data";
-        toggleBtn.className = "flex-1 md:flex-none bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition flex items-center justify-center gap-1.5 cursor-pointer";
+        btnText.innerText = "Hide & Mask Real Data (Show Hash)";
+        toggleBtn.className = "bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow transition flex items-center gap-1.5 cursor-pointer";
       } else {
-        btnText.innerText = "Decrypt Hash";
-        toggleBtn.className = "flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition flex items-center justify-center gap-1.5 cursor-pointer";
+        btnText.innerText = "Convert Hash to Real Data";
+        toggleBtn.className = "bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow transition flex items-center gap-1.5 cursor-pointer";
       }
 
       renderUnifiedTable(getFilteredCategoryRecords());
@@ -1728,9 +1703,9 @@
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-btn-${t}`);
         if (t === tabName) {
-          btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow whitespace-nowrap";
+          btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow";
         } else {
-          btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300 whitespace-nowrap";
+          btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-slate-200 text-slate-700 hover:bg-slate-300";
         }
       });
 
@@ -1765,6 +1740,7 @@
 
       const recordMap = new Map();
 
+      // Fetch from Google Sheet
       const sheetPromise = fetch(`${GOOGLE_SHEET_WEBHOOK_URL}?action=fetch_all_records&user=admin&pass=Freshtime@2026`)
         .then(res => res.json())
         .then(result => {
@@ -1786,6 +1762,7 @@
         })
         .catch(err => console.warn("Sheet fetch notice:", err));
 
+      // Fetch from Firebase
       let firebasePromise = Promise.resolve();
       if (ticketsRef) {
         firebasePromise = ticketsRef.once("value").then(snapshot => {
@@ -1882,7 +1859,7 @@
             <td class="p-3 whitespace-nowrap">${statusBadge}</td>
             <td class="p-3 font-mono font-bold text-slate-900 whitespace-nowrap">${r.ticketId}</td>
             <td class="p-3 font-bold text-slate-800 whitespace-nowrap">${r.applicantName || 'N/A'}</td>
-            <td class="p-3 whitespace-nowrap"><span class="bg-slate-100 px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-700">${r.category || 'N/A'}</span></td>
+            <td class="p-3 whitespace-nowrap"><span class="bg-slate-100 px-2.5 py-1 rounded text-[11px] font-semibold text-slate-700">${r.category || 'N/A'}</span></td>
             <td class="p-3 text-blue-700 font-medium whitespace-nowrap">${r.issue || 'N/A'}</td>
             <td class="p-3 text-center whitespace-nowrap">
               <button type="button" onclick="openFullDetailsModal('${r.ticketId}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-lg text-xs font-bold shadow transition flex items-center gap-1 mx-auto cursor-pointer">
@@ -1992,12 +1969,12 @@
 
       document.getElementById('modalActionsFooter').innerHTML = `
         <div class="flex items-center gap-2">
-          <button type="button" onclick="closeFullDetailsModal(); openEditModal('${rec.fbKey || ''}', ${rec.rowId || 0}, '${rec.ticketId}', '${encodeURIComponent(rec.status || '')}', '${encodeURIComponent(rec.remarks || '')}')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow cursor-pointer">
+          <button type="button" onclick="closeFullDetailsModal(); openEditModal('${rec.fbKey || ''}', ${rec.rowId || 0}, '${rec.ticketId}', '${encodeURIComponent(rec.status || '')}', '${encodeURIComponent(rec.remarks || '')}')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow cursor-pointer">
             Update Status
           </button>
-          ${cleanPhone.length === 10 ? `<a href="${adminWaUrl}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow inline-block">WhatsApp</a>` : ''}
+          ${cleanPhone.length === 10 ? `<a href="${adminWaUrl}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow inline-block">Open WhatsApp</a>` : ''}
         </div>
-        <button type="button" onclick="closeFullDetailsModal()" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-5 py-2 rounded-xl text-xs cursor-pointer">
+        <button type="button" onclick="closeFullDetailsModal()" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-5 py-2 rounded-lg text-xs cursor-pointer">
           Close
         </button>
       `;
@@ -2067,7 +2044,7 @@
       const btn = document.getElementById('saveStatusBtn');
 
       btn.disabled = true;
-      btn.innerText = "Syncing DBs...";
+      btn.innerText = "Syncing Both DBs...";
 
       if (ticketsRef) {
         try {
@@ -2136,6 +2113,243 @@
       document.getElementById('fixedAmount').value = "0.00";
       document.getElementById('feeBreakdownText').innerText = "Please select your classification and issue type above.";
       isSubmitting = false;
+    }
+
+    // ========================================================
+    // AI CHAT SUPPORT CONTROLLER (WITH CLASSIFICATION & ISSUES)
+    // ========================================================
+    let chatStep = "idle";
+    let chatTicketDraft = {};
+
+    function toggleAIChat() {
+      const box = document.getElementById("aiChatBox");
+      box.classList.toggle("hidden");
+      if (!box.classList.contains("hidden") && document.getElementById("aiChatMessages").children.length === 0) {
+        appendBotMessage("Hello! 👋 Welcome to Freshtime AI Support. How can I assist you with your portal issue today? Choose an option below or type directly:");
+      }
+    }
+
+    function appendBotMessage(html) {
+      const container = document.getElementById("aiChatMessages");
+      const msg = document.createElement("div");
+      msg.className = "flex gap-2 items-start";
+      msg.innerHTML = `
+        <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">AI</div>
+        <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm text-slate-800 leading-relaxed max-w-[85%]">${html}</div>
+      `;
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById("aiChatMessages");
+      const msg = document.createElement("div");
+      msg.className = "flex justify-end";
+      msg.innerHTML = `
+        <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-none p-3 shadow-sm leading-relaxed max-w-[85%]">${text}</div>
+      `;
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function triggerChatAction(action) {
+      if (action === "status") {
+        chatStep = "ask_ticket_id";
+        appendBotMessage("Please enter your <strong>Ticket ID</strong> (e.g. <code>UUCMS-123456</code>) or registered 10-digit mobile number to look up status.");
+      } else if (action === "create") {
+        chatStep = "select_classification";
+        chatTicketDraft = {};
+        
+        // Show Classification Options
+        let optionsHtml = `
+          <p class="mb-2 font-semibold">Please select your <strong>Applicant Classification</strong>:</p>
+          <div class="flex flex-col gap-1.5">
+            <button type="button" onclick="handleClassificationSelect('Student / Candidate')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer">
+              1. Student / Candidate
+            </button>
+            <button type="button" onclick="handleClassificationSelect('College')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer">
+              2. College
+            </button>
+            <button type="button" onclick="handleClassificationSelect('University')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer">
+              3. University
+            </button>
+          </div>
+        `;
+        appendBotMessage(optionsHtml);
+      }
+    }
+
+    function handleClassificationSelect(classification) {
+      appendUserMessage(classification);
+      chatTicketDraft.category = classification;
+      
+      // Load and show issue categories for chosen classification
+      const issues = CLASSIFIED_ISSUES[classification] || [];
+      let issueOptionsHtml = `
+        <p class="mb-2">Selected: <strong>${classification}</strong>.<br>Now please choose your <strong>Issue Category</strong>:</p>
+        <div class="flex flex-col gap-1.5">
+      `;
+
+      issues.forEach(item => {
+        issueOptionsHtml += `
+          <button type="button" onclick="handleIssueCategorySelect('${item.label}', ${item.fee})" class="text-left bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer">
+            ${item.label} (₹${item.fee.toFixed(2)})
+          </button>
+        `;
+      });
+      issueOptionsHtml += `</div>`;
+
+      chatStep = "select_issue";
+      appendBotMessage(issueOptionsHtml);
+    }
+
+    function handleIssueCategorySelect(issueLabel, fee) {
+      appendUserMessage(`${issueLabel} (₹${fee.toFixed(2)})`);
+      chatTicketDraft.issue = issueLabel;
+      chatTicketDraft.amount = fee.toFixed(2);
+
+      chatStep = "create_name";
+      appendBotMessage("Got it! Next, what is your <strong>Full Name</strong>?");
+    }
+
+    async function handleAIChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById("aiChatInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendUserMessage(text);
+      input.value = "";
+
+      // 1. Check Status Flow
+      if (chatStep === "ask_ticket_id" || text.toUpperCase().startsWith("UUCMS-")) {
+        const query = text.toLowerCase();
+        appendBotMessage("Checking database for ticket reference...");
+
+        let found = null;
+        if (ticketsRef) {
+          try {
+            const snap = await ticketsRef.once("value");
+            const data = snap.val();
+            if (data) {
+              Object.values(data).forEach(t => {
+                if (
+                  (t.ticketId && t.ticketId.toLowerCase() === query) ||
+                  (t.contactNumber && String(t.contactNumber).toLowerCase() === query) ||
+                  (t.utrNumber && String(t.utrNumber).toLowerCase() === query) ||
+                  (t.loginId && t.loginId.toLowerCase() === query)
+                ) {
+                  found = t;
+                }
+              });
+            }
+          } catch(err) {
+            console.error(err);
+          }
+        }
+
+        if (found) {
+          appendBotMessage(`
+            <strong>Ticket Found:</strong> <code class="font-bold text-blue-700">${found.ticketId}</code><br>
+            <strong>Status:</strong> <span class="text-indigo-600 font-bold">${found.status}</span><br>
+            <strong>Classification:</strong> ${found.category || "N/A"}<br>
+            <strong>Issue:</strong> ${found.issue || "General Issue"}<br>
+            <strong>Remarks:</strong> ${found.remarks || "Under review by technician."}<br><br>
+            <button onclick="navigate('status', 'ticket=${found.ticketId}')" class="text-indigo-600 underline font-bold cursor-pointer">Open Full Status Page &rarr;</button>
+          `);
+        } else {
+          appendBotMessage(`Sorry, no ticket was found matching <code>${text}</code>. Please check your reference or click <strong>➕ Raise Ticket</strong>.`);
+        }
+        chatStep = "idle";
+        return;
+      }
+
+      // 2. Multi-Step Ticket Submission
+      if (chatStep === "create_name") {
+        chatTicketDraft.applicantName = text;
+        chatStep = "create_phone";
+        appendBotMessage(`Nice to connect, <strong>${text}</strong>! What is your <strong>10-digit mobile number</strong>?`);
+        return;
+      }
+
+      if (chatStep === "create_phone") {
+        const cleanPhone = text.replace(/[^0-9]/g, "");
+        if (cleanPhone.length !== 10) {
+          appendBotMessage("Please provide a valid <strong>10-digit mobile number</strong>.");
+          return;
+        }
+        chatTicketDraft.contactNumber = cleanPhone;
+        chatStep = "create_institution";
+        appendBotMessage("What is your <strong>College or University name</strong>?");
+        return;
+      }
+
+      if (chatStep === "create_institution") {
+        chatTicketDraft.institution = text;
+        chatStep = "create_desc";
+        appendBotMessage("Please describe your <strong>Error Description</strong> (error message, barrier faced, or details):");
+        return;
+      }
+
+      // Step: Error Description & Finalize Ticket
+      if (chatStep === "create_desc") {
+        chatTicketDraft.description = text;
+        chatTicketDraft.ticketId = "UUCMS-" + Math.floor(100000 + Math.random() * 900000);
+        chatTicketDraft.loginId = "N/A";
+        chatTicketDraft.portalPassword = "N/A";
+        chatTicketDraft.otp = "N/A";
+        chatTicketDraft.contactEmail = "N/A";
+        chatTicketDraft.amount = chatTicketDraft.amount || "80.00";
+        chatTicketDraft.utrNumber = "Payment Pending";
+        chatTicketDraft.paymentId = "UNPAID";
+        chatTicketDraft.paymentMethod = "Pending";
+        chatTicketDraft.status = "Payment Pending / Unpaid";
+        chatTicketDraft.remarks = "Ticket registered via Homepage AI Chatbot. Pending fee payment.";
+        chatTicketDraft.timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+        // Save to Firebase
+        if (ticketsRef) {
+          try {
+            await ticketsRef.push({
+              ...chatTicketDraft,
+              createdAt: firebase.database.ServerValue.TIMESTAMP
+            });
+          } catch(err) {
+            console.error(err);
+          }
+        }
+
+        // Save to Google Sheet
+        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "save_record", ...chatTicketDraft })
+        }).catch(err => console.warn(err));
+
+        appendBotMessage(`
+          🎉 <strong>Grievance Ticket Registered!</strong><br><br>
+          • <strong>Ticket ID:</strong> <code class="font-bold text-indigo-700">${chatTicketDraft.ticketId}</code><br>
+          • <strong>Classification:</strong> ${chatTicketDraft.category}<br>
+          • <strong>Issue:</strong> ${chatTicketDraft.issue}<br>
+          • <strong>Payable Amount:</strong> ₹${chatTicketDraft.amount}<br>
+          • <strong>Status:</strong> ${chatTicketDraft.status}<br><br>
+          Please complete your verification and upload proof using the link below:<br>
+          <button onclick="navigate('pay', 'ticket=${chatTicketDraft.ticketId}&amount=${chatTicketDraft.amount}')" class="mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow inline-block cursor-pointer">Proceed to Pay & Upload Proof &rarr;</button>
+        `);
+        chatStep = "idle";
+        return;
+      }
+
+      // Fallback intent recognition
+      const lower = text.toLowerCase();
+      if (lower.includes("status") || lower.includes("track") || lower.includes("check")) {
+        triggerChatAction("status");
+      } else if (lower.includes("raise") || lower.includes("create") || lower.includes("complaint") || lower.includes("issue") || lower.includes("new")) {
+        triggerChatAction("create");
+      } else {
+        appendBotMessage("I can assist you with checking ticket status or raising a technical grievance with classification options. Choose an option below:");
+      }
     }
 
     // ========================================================
