@@ -2115,12 +2115,17 @@
     let chatTicketDraft = {};
 
     function toggleAIChat() {
-      const box = document.getElementById("aiChatBox");
-      box.classList.toggle("hidden");
-      if (!box.classList.contains("hidden") && document.getElementById("aiChatMessages").children.length === 0) {
-        appendBotMessage("Hello! 👋 Welcome to Freshtime AI Support. How can I assist you with your portal issue today? Choose an option below or type directly:");
-      }
+  const box = document.getElementById("aiChatBox");
+  box.classList.toggle("hidden");
+  if (!box.classList.contains("hidden")) {
+    if (document.getElementById("aiChatMessages").children.length === 0) {
+      appendBotMessage("Hello! 👋 Welcome to Freshtime AI Support. How can I assist you with your portal issue today? Choose an option below or type directly:");
     }
+    // Auto-scroll messages to bottom
+    const container = document.getElementById("aiChatMessages");
+    container.scrollTop = container.scrollHeight;
+  }
+}
 
     function appendBotMessage(html) {
       const container = document.getElementById("aiChatMessages");
