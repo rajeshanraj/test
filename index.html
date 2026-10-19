@@ -257,4 +257,946 @@
             <div>
               <label class="block text-xs font-medium text-slate-700 mb-1">Classification *</label>
               <select id="userCategory" onchange="handleClassificationChange()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option value
+                <option value="" disabled selected>-- Select --</option>
+                <option value="Student / Candidate">1. Student / Candidate</option>
+                <option value="College">2. College</option>
+                <option value="University">3. University</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Full Name *</label>
+              <input type="text" id="applicantFullName" required placeholder="Full Name" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Institution Name *</label>
+              <input type="text" id="institutionName" required placeholder="College / University" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-3">2. Grievance Details</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Issue Category *</label>
+              <select id="issueCategory" onchange="updateProcessingFee()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="" disabled selected>-- Select Classification First --</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Error Description *</label>
+              <textarea id="issueDescription" rows="2" required placeholder="Describe error code or barrier..." class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold text-slate-800 mb-2">3. Portal Login Credentials (Masked)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Login ID / Register No. *</label>
+              <input type="text" id="loginId" required placeholder="U03XX21S0000" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Password *</label>
+              <input type="password" id="portalPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Recent OTP (if needed)</label>
+              <input type="password" id="otpValue" placeholder="••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-700 mb-1">Contact Phone *</label>
+              <input type="tel" id="contactNumber" pattern="[0-9]{10}" required placeholder="10-digit mobile" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-700 mb-1">Email *</label>
+              <input type="email" id="contactEmail" required placeholder="name@domain.com" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 flex items-center justify-between">
+            <span class="text-xs font-bold text-blue-900" id="feeBreakdownText">Service Fee</span>
+            <div class="flex items-baseline gap-1 font-bold text-blue-700">
+              <span class="text-xs">₹</span>
+              <span id="displayAmount" class="text-xl">0.00</span>
+            </div>
+          </div>
+          <input type="hidden" id="fixedAmount" value="0.00" />
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition shadow text-sm flex items-center justify-center gap-2 cursor-pointer">
+          <span>Submit & Proceed to Pay</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= VIEW 5: PAY & PROOF (#pay) ================= -->
+  <div id="view-pay" class="page-view hidden max-w-xl mx-auto w-full px-4 py-8 space-y-5">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-5 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-base font-bold text-slate-900">FRESH PAY - Verification</h3>
+        <span id="fpPayTicketId" class="text-xs font-mono font-bold text-indigo-700"></span>
+      </div>
+
+      <div class="bg-slate-900 text-white p-3.5 rounded-xl flex items-center justify-between">
+        <span class="text-xs text-slate-400">Total Payable</span>
+        <span id="fpPayableAmount" class="text-xl font-black text-emerald-400">₹0.00</span>
+      </div>
+
+      <!-- QR Card (Updated to Q68094857@ybl) -->
+      <div class="bg-emerald-50 border border-emerald-300 rounded-xl p-3 text-center space-y-2">
+        <img id="dynamicUpiQr" src="" alt="UPI QR" class="w-44 h-44 mx-auto bg-white p-2 rounded-lg border shadow-sm" />
+        <div class="text-[12px] font-mono font-extrabold text-emerald-900 bg-white inline-block px-3 py-1 rounded border border-emerald-300">
+          UPI ID: Q68094857@ybl
+        </div>
+      </div>
+
+      <!-- Proof Form -->
+      <div class="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">12-Digit Bank Reference / UTR *</label>
+          <input type="text" id="fpUtrInput" maxlength="12" pattern="[0-9]{12}" required placeholder="425689102345" class="w-full border rounded-lg p-2.5 font-mono bg-white" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Payment App Used *</label>
+          <select id="fpPaymentModeSelect" class="w-full border rounded-lg p-2 bg-white">
+            <option value="PhonePe">PhonePe</option>
+            <option value="Google Pay (GPay)">Google Pay (GPay)</option>
+            <option value="Paytm UPI">Paytm UPI</option>
+            <option value="BHIM UPI">BHIM UPI</option>
+            <option value="Other">Other UPI / NetBanking</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Payment Screenshot Proof *</label>
+          <input type="file" id="fpScreenshotInput" accept="image/*" required class="w-full border rounded-lg p-2 bg-white text-xs" />
+        </div>
+      </div>
+
+      <button type="button" id="fpSubmitPaymentBtn" onclick="confirmAndSubmitPaymentProof()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-sm shadow cursor-pointer">
+        Confirm Payment & Update Ticket
+      </button>
+    </div>
+  </div>
+
+  <!-- FLOATING ACTION BUTTONS (DOCKED ABOVE BOTTOM NAVIGATION) -->
+  <div class="fixed bottom-20 md:bottom-6 right-4 z-40 flex items-center gap-2.5">
+    <!-- AI Chat Toggle Button -->
+    <button 
+      id="aiChatToggleBtn" 
+      type="button" 
+      onclick="toggleAIChat()" 
+      class="bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-3.5 rounded-full shadow-2xl transition hover:scale-105 flex items-center justify-center cursor-pointer"
+      aria-label="Open AI Support Chat"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+      </svg>
+    </button>
+
+    <!-- Floating WhatsApp Button -->
+    <a 
+      href="https://wa.me/917406227904?text=Hello%20Freshtime%20Enterprises,%20I%20need%20assistance%20with%20my%20UUCMS%20Portal." 
+      target="_blank" 
+      class="bg-emerald-500 hover:bg-emerald-600 text-white p-3 sm:p-3.5 rounded-full shadow-2xl transition hover:scale-105 flex items-center justify-center cursor-pointer"
+      aria-label="WhatsApp Support"
+    >
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- AI CHAT DIALOG WINDOW -->
+  <div id="aiChatBox" class="hidden fixed inset-x-2 bottom-32 sm:inset-auto sm:bottom-20 sm:right-4 z-50 sm:w-96 max-h-[75vh] h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-300 overflow-hidden flex flex-col font-sans">
+    <div class="bg-indigo-700 text-white p-3.5 flex items-center justify-between shadow-sm shrink-0">
+      <div class="flex items-center gap-2">
+        <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+        <div>
+          <h3 class="font-bold text-sm leading-tight">Freshtime AI Support</h3>
+          <p class="text-[10px] text-indigo-200">Grievance & Resolution Desk</p>
+        </div>
+      </div>
+      <button type="button" onclick="toggleAIChat()" class="text-indigo-200 hover:text-white text-2xl font-bold cursor-pointer leading-none">&times;</button>
+    </div>
+
+    <!-- Messages -->
+    <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-50 text-xs"></div>
+
+    <!-- Action Shortcuts -->
+    <div class="px-3 py-2 bg-slate-100 border-t border-slate-200 flex gap-2 shrink-0 overflow-x-auto">
+      <button type="button" onclick="triggerChatAction('create')" class="bg-white border border-slate-300 text-slate-700 px-2.5 py-1 rounded-full text-[11px] font-semibold hover:bg-indigo-50 whitespace-nowrap shrink-0 cursor-pointer">
+        ➕ Raise Ticket
+      </button>
+      <button type="button" onclick="triggerChatAction('status')" class="bg-white border border-slate-300 text-slate-700 px-2.5 py-1 rounded-full text-[11px] font-semibold hover:bg-indigo-50 whitespace-nowrap shrink-0 cursor-pointer">
+        🔍 Check Status
+      </button>
+    </div>
+
+    <!-- Input -->
+    <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2 shrink-0">
+      <input type="text" id="aiChatInput" placeholder="Type here..." autocomplete="off" class="flex-1 min-w-0 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+      <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg text-xs font-semibold shrink-0 cursor-pointer">Send</button>
+    </form>
+  </div>
+
+  <!-- ================= MOBILE APP BOTTOM NAVIGATION (AS SEEN IN IMG 2) ================= -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900 text-slate-400 border-t border-slate-800 flex items-center justify-around py-2 px-1 shadow-2xl">
+    <button type="button" onclick="navigate('home')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span>Home</span>
+    </button>
+    <button type="button" onclick="navigate('status')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <span>Status</span>
+    </button>
+    <button type="button" onclick="navigate('student-login')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button type="button" onclick="navigate('complaint')" class="flex flex-col items-center gap-1 text-[10px] text-amber-400 font-bold">
+      <div class="w-7 h-7 bg-amber-500 text-slate-950 rounded-full flex items-center justify-center font-black text-base shadow">
+        +
+      </div>
+      <span>Raise Issue</span>
+    </button>
+  </nav>
+
+  <!-- Footer with Updated Business Details -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 space-y-3 text-center sm:text-left">
+      <p class="text-white font-semibold text-sm">Freshtime Enterprises</p>
+      <p class="text-slate-300">
+        No. 69, 1st Floor, 2nd Cross, CBI Road, Vasanthappa Block, Ganganagar, RT Nagar Post, Bengaluru, Karnataka 560032
+      </p>
+      <p class="text-slate-300">
+        Contact / WhatsApp: <a href="tel:7406227904" class="text-blue-400 font-bold hover:underline">+91 7406227904</a>
+      </p>
+      <p>
+        <a href="https://maps.app.goo.gl/iaT1eSHyq3CKcHRaA" target="_blank" class="text-amber-400 font-bold hover:underline">
+          📍 View Location on Google Maps
+        </a>
+      </p>
+      <p class="text-slate-500 text-[11px] pt-2 border-t border-slate-800">
+        &copy; 2026 Freshtime Enterprises. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPT LOGIC ================= -->
+  <script>
+    const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbz4yowS5r7KcuCv3rCAqSQr6Wz6E83AJwXQ2VpLG8LEmuH_aGJUSFyymU-893xcBrKR/exec";
+    
+    // UPDATED UPI ID
+    const FRESHTIME_UPI_ID = "Q68094857@ybl";
+    const FRESHTIME_CIPHER_SECRET = "Freshtime@SecureKey2026";
+
+    function encodeToHash(text) {
+      if (!text || text === "N/A") return text;
+      let result = "";
+      for (let i = 0; i < text.length; i++) {
+        let charCode = text.charCodeAt(i) ^ FRESHTIME_CIPHER_SECRET.charCodeAt(i % FRESHTIME_CIPHER_SECRET.length);
+        result += charCode.toString(16).padStart(2, '0');
+      }
+      return "ENC:" + result;
+    }
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDv4svyqS7hNhJ8B9-8uOhQZE_Nczuu35s",
+      authDomain: "freshtime-enterprises.firebaseapp.com",
+      databaseURL: "https://freshtime-enterprises-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "freshtime-enterprises",
+      storageBucket: "freshtime-enterprises.firebasestorage.app",
+      messagingSenderId: "929876451772",
+      appId: "1:929876451772:web:b268e8e34f564772020bb9"
+    };
+
+    let db = null;
+    let ticketsRef = null;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.database();
+      ticketsRef = db.ref("uucms_tickets");
+    } catch(err) {
+      console.warn(err);
+    }
+
+    const CLASSIFIED_ISSUES = {
+      "Student / Candidate": [
+        { label: "APAAR ID Fetching Issue", fee: 150.00 },
+        { label: "Mandatory Password Changing Issue", fee: 70.00 },
+        { label: "Password Reset Error", fee: 70.00 },
+        { label: "Admission / Registration Process", fee: 150.00 },
+        { label: "Exam Application / Hall Ticket Error", fee: 120.00 },
+        { label: "Other Issue", fee: 80.00 }
+      ],
+      "College": [
+        { label: "Affiliation / Intake Approval Sync", fee: 200.00 },
+        { label: "Student Batch Promotion Barrier", fee: 150.00 },
+        { label: "Bulk Student APAAR ID Verification", fee: 250.00 },
+        { label: "College Portal Admin Password Reset", fee: 100.00 },
+        { label: "Internal Assessment Upload Error", fee: 150.00 },
+        { label: "Other Issue", fee: 80.00 }
+      ],
+      "University": [
+        { label: "University Nodal Officer Login Issue", fee: 200.00 },
+        { label: "Curriculum / Scheme Mapping Barrier", fee: 300.00 },
+        { label: "Results Processing / Approval Sync", fee: 250.00 },
+        { label: "University Staff Mandatory Password Loop", fee: 100.00 },
+        { label: "Other Issue", fee: 80.00 }
+      ]
+    };
+
+    let isSubmitting = false;
+    let currentPendingTicket = null;
+
+    // Public Routing (Without Admin View)
+    function navigate(route, params = "") {
+      const targetHash = params ? `#${route}?${params}` : `#${route}`;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
+      }
+      renderCurrentRoute();
+    }
+
+    function renderCurrentRoute() {
+      const fullHash = window.location.hash.replace("#", "") || "home";
+      const [route, queryString] = fullHash.split("?");
+      const urlParams = new URLSearchParams(queryString || "");
+
+      document.querySelectorAll(".page-view").forEach(el => el.classList.add("hidden"));
+
+      switch(route) {
+        case "complaint":
+          document.getElementById("view-complaint").classList.remove("hidden");
+          break;
+        case "status":
+          document.getElementById("view-status").classList.remove("hidden");
+          if (urlParams.has("ticket")) {
+            document.getElementById("searchQuery").value = urlParams.get("ticket");
+            checkTicketStatus(new Event("submit"));
+          }
+          break;
+        case "student-login":
+          document.getElementById("view-student-login").classList.remove("hidden");
+          checkStudentSession();
+          break;
+        case "pay":
+          document.getElementById("view-pay").classList.remove("hidden");
+          loadPaymentScreenFromParams(urlParams);
+          break;
+        case "home":
+        default:
+          document.getElementById("view-home").classList.remove("hidden");
+          loadPublicReviews();
+          break;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener("hashchange", renderCurrentRoute);
+    window.addEventListener("DOMContentLoaded", () => {
+      renderCurrentRoute();
+      loadPublicReviews();
+    });
+
+    async function loadPublicReviews() {
+      const grid = document.getElementById('googleReviewsGrid');
+      if (!grid) return;
+      let allRecords = [];
+      if (ticketsRef) {
+        try {
+          const snap = await ticketsRef.once("value");
+          const val = snap.val();
+          if (val) allRecords = Object.values(val);
+        } catch(e) {}
+      }
+      const reviewed = allRecords.filter(r => r.feedbackRating && Number(r.feedbackRating) > 0);
+      if (reviewed.length === 0) {
+        grid.innerHTML = `
+          <div class="bg-slate-50 p-3.5 rounded-xl border text-xs text-slate-600">
+            <p class="font-bold text-slate-800">★ 5.0 Rating</p>
+            <p class="mt-1">Quick turnaround time and secure credential handling.</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border text-xs text-slate-600">
+            <p class="font-bold text-slate-800">Fast APAAR Resolution</p>
+            <p class="mt-1">"Resolved student portal synchronization issues smoothly."</p>
+          </div>
+        `;
+        return;
+      }
+      grid.innerHTML = reviewed.slice(-3).reverse().map(r => `
+        <div class="bg-slate-50 p-3.5 rounded-xl border space-y-1">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-slate-900 text-xs">${r.applicantName || 'Candidate'}</span>
+            <span class="text-amber-500 font-bold">${'★'.repeat(r.feedbackRating)}</span>
+          </div>
+          <p class="text-xs text-slate-600 italic">"${r.feedbackComment || 'Great technical support.'}"</p>
+        </div>
+      `).join("");
+    }
+
+    function handleClassificationChange() {
+      const category = document.getElementById('userCategory').value;
+      const issueSelect = document.getElementById('issueCategory');
+      issueSelect.innerHTML = `<option value="" disabled selected>-- Select Technical Issue --</option>`;
+      if (CLASSIFIED_ISSUES[category]) {
+        CLASSIFIED_ISSUES[category].forEach(item => {
+          const opt = document.createElement("option");
+          opt.value = item.label;
+          opt.innerText = item.label;
+          issueSelect.appendChild(opt);
+        });
+      }
+      updateProcessingFee();
+    }
+
+    function updateProcessingFee() {
+      const category = document.getElementById('userCategory').value;
+      const issue = document.getElementById('issueCategory').value;
+      let rate = 0.00;
+      if (CLASSIFIED_ISSUES[category]) {
+        const found = CLASSIFIED_ISSUES[category].find(x => x.label === issue);
+        if (found) rate = found.fee;
+      }
+      document.getElementById('displayAmount').innerText = rate.toFixed(2);
+      document.getElementById('fixedAmount').value = rate.toFixed(2);
+      document.getElementById('feeBreakdownText').innerText = rate > 0 ? `Charge for ${issue}` : "Service Fee";
+    }
+
+    async function handleInitialSubmitAndPay(e) {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      const amount = parseFloat(document.getElementById('fixedAmount').value || 0).toFixed(2);
+      if (amount <= 0) {
+        alert("Please select an issue category.");
+        return;
+      }
+
+      isSubmitting = true;
+      const ticketId = "UUCMS-" + Math.floor(100000 + Math.random() * 900000);
+      const rawPassword = document.getElementById('portalPassword').value;
+      const rawOtp = document.getElementById('otpValue').value || 'N/A';
+
+      const initialPayload = {
+        action: "save_record",
+        ticketId: ticketId,
+        applicantName: document.getElementById('applicantFullName').value.trim(),
+        category: document.getElementById('userCategory').value,
+        institution: document.getElementById('institutionName').value.trim(),
+        issue: document.getElementById('issueCategory').value,
+        description: document.getElementById('issueDescription').value.trim(),
+        loginId: document.getElementById('loginId').value.trim(),
+        portalPassword: encodeToHash(rawPassword),
+        otp: encodeToHash(rawOtp),
+        contactNumber: document.getElementById('contactNumber').value.trim(),
+        contactEmail: document.getElementById('contactEmail').value.trim(),
+        amount: amount,
+        utrNumber: "Payment Pending",
+        paymentId: "UNPAID",
+        paymentMethod: "Pending",
+        screenshotProof: "",
+        status: "Payment Pending / Unpaid",
+        remarks: "Ticket registered. Awaiting fee proof.",
+        timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
+      };
+
+      currentPendingTicket = initialPayload;
+
+      fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(initialPayload)
+      }).catch(err => console.warn(err));
+
+      if (ticketsRef) {
+        try {
+          await ticketsRef.push({
+            ...initialPayload,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
+          });
+        } catch(e) {}
+      }
+
+      isSubmitting = false;
+      navigate("pay", `ticket=${ticketId}&amount=${amount}`);
+    }
+
+    function loadPaymentScreenFromParams(params) {
+      const ticketId = params.get("ticket") || (currentPendingTicket ? currentPendingTicket.ticketId : "");
+      const amount = params.get("amount") || (currentPendingTicket ? currentPendingTicket.amount : "0.00");
+      if (!ticketId) {
+        navigate("complaint");
+        return;
+      }
+      document.getElementById("fpPayTicketId").innerText = ticketId;
+      document.getElementById("fpPayableAmount").innerText = `₹${amount}`;
+
+      // DYNAMIC QR CODE WITH NEW UPI ID
+      const upi = `upi://pay?pa=${FRESHTIME_UPI_ID}&pn=Freshtime%20Enterprises&am=${amount}&cu=INR&tn=UUCMS%20Fee%20${ticketId}`;
+      document.getElementById('dynamicUpiQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upi)}`;
+    }
+
+    function compressImageFile(file, maxWidth = 600, maxHeight = 600, quality = 0.5) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            if (width > height && width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            } else if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.onerror = () => resolve(event.target.result);
+        };
+        reader.onerror = () => resolve("");
+      });
+    }
+
+    async function confirmAndSubmitPaymentProof() {
+      if (isSubmitting) return;
+      const utr = document.getElementById('fpUtrInput').value.trim();
+      if (!/^\d{12}$/.test(utr)) {
+        alert("Enter valid 12-digit UTR Number.");
+        return;
+      }
+      const fileInput = document.getElementById('fpScreenshotInput');
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert("Please upload payment screenshot.");
+        return;
+      }
+
+      isSubmitting = true;
+      const submitBtn = document.getElementById('fpSubmitPaymentBtn');
+      submitBtn.innerText = "Uploading Proof...";
+
+      let compressedScreenshot = await compressImageFile(fileInput.files[0], 600, 600, 0.5);
+      const ticketId = document.getElementById("fpPayTicketId").innerText.trim();
+      const mode = document.getElementById('fpPaymentModeSelect').value;
+
+      if (compressedScreenshot) {
+        try { localStorage.setItem("proof_" + ticketId, compressedScreenshot); } catch(e) {}
+      }
+
+      let drivePhotoUrl = "";
+      try {
+        const res = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "update_payment_proof",
+            ticketId: ticketId,
+            utrNumber: utr,
+            paymentId: utr,
+            paymentMethod: mode,
+            screenshotProof: compressedScreenshot,
+            status: "Payment Verified - In Progress",
+            remarks: `Proof submitted via ${mode}. UTR: ${utr}`
+          })
+        });
+        const json = await res.json();
+        if (json && json.photoUrl) drivePhotoUrl = json.photoUrl;
+      } catch(e) {}
+
+      const finalProof = drivePhotoUrl || compressedScreenshot;
+      if (ticketsRef) {
+        try {
+          const snap = await ticketsRef.orderByChild("ticketId").equalTo(ticketId).once("value");
+          if (snap.exists()) {
+            const updates = {};
+            snap.forEach(child => {
+              updates[`uucms_tickets/${child.key}/utrNumber`] = utr;
+              updates[`uucms_tickets/${child.key}/paymentMethod`] = mode;
+              updates[`uucms_tickets/${child.key}/screenshotProof`] = finalProof;
+              updates[`uucms_tickets/${child.key}/status`] = "Payment Verified - In Progress";
+              updates[`uucms_tickets/${child.key}/remarks`] = `Proof submitted. UTR: ${utr}`;
+            });
+            await db.ref().update(updates);
+          }
+        } catch(e) {}
+      }
+
+      alert("Payment proof uploaded successfully!");
+      isSubmitting = false;
+      navigate("status", `ticket=${ticketId}`);
+    }
+
+    async function checkTicketStatus(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const query = document.getElementById('searchQuery').value.trim().toLowerCase();
+      const box = document.getElementById('statusResultBox');
+      if (!query) return;
+
+      box.classList.add('hidden');
+      let foundTicket = null;
+
+      if (ticketsRef) {
+        try {
+          const snapshot = await ticketsRef.once("value");
+          const data = snapshot.val();
+          if (data) {
+            Object.values(data).forEach(t => {
+              if (
+                (t.ticketId && t.ticketId.toLowerCase() === query) ||
+                (t.utrNumber && String(t.utrNumber).toLowerCase() === query) ||
+                (t.contactNumber && String(t.contactNumber).toLowerCase() === query) ||
+                (t.loginId && t.loginId.toLowerCase() === query)
+              ) {
+                foundTicket = t;
+              }
+            });
+          }
+        } catch(e) {}
+      }
+
+      box.classList.remove('hidden');
+      if (foundTicket) {
+        box.className = "mt-4 p-4 rounded-xl border text-xs bg-slate-50 space-y-1.5";
+        box.innerHTML = `
+          <div class="flex justify-between items-center border-b pb-2">
+            <span class="font-mono font-bold text-sm text-blue-700">${foundTicket.ticketId}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">${foundTicket.status}</span>
+          </div>
+          <p><strong>Applicant:</strong> ${foundTicket.applicantName}</p>
+          <p><strong>Issue:</strong> ${foundTicket.issue}</p>
+          <p><strong>UTR:</strong> ${foundTicket.utrNumber || 'Under Review'}</p>
+          <p><strong>Remarks:</strong> ${foundTicket.remarks || 'None'}</p>
+        `;
+      } else {
+        box.className = "mt-4 p-4 rounded-xl border bg-red-50 text-xs text-red-700";
+        box.innerHTML = `No record found for <strong>${query}</strong>.`;
+      }
+    }
+
+    // Student Dashboard Login
+    function handleStudentLogin(e) {
+      e.preventDefault();
+      const id = document.getElementById('studentIdentifier').value.trim().toLowerCase();
+      if (!id) return;
+      sessionStorage.setItem("freshtime_student_session", id);
+      checkStudentSession();
+    }
+
+    function handleStudentLogout() {
+      sessionStorage.removeItem("freshtime_student_session");
+      document.getElementById("studentDashboardBox").classList.add("hidden");
+      document.getElementById("studentLoginBox").classList.remove("hidden");
+    }
+
+    async function checkStudentSession() {
+      const session = sessionStorage.getItem("freshtime_student_session");
+      if (!session) {
+        document.getElementById("studentDashboardBox").classList.add("hidden");
+        document.getElementById("studentLoginBox").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("studentLoginBox").classList.add("hidden");
+      document.getElementById("studentDashboardBox").classList.remove("hidden");
+      document.getElementById("studentWelcomeTitle").innerText = `My Tickets (${session})`;
+
+      const listDiv = document.getElementById("studentTicketsList");
+      listDiv.innerHTML = `<div class="p-4 bg-white rounded-xl text-center text-xs text-slate-400">Loading...</div>`;
+
+      let matched = [];
+      if (ticketsRef) {
+        try {
+          const snap = await ticketsRef.once("value");
+          const val = snap.val();
+          if (val) {
+            Object.values(val).forEach(t => {
+              if (
+                (t.contactNumber && String(t.contactNumber).toLowerCase().includes(session)) ||
+                (t.loginId && String(t.loginId).toLowerCase().includes(session))
+              ) matched.push(t);
+            });
+          }
+        } catch(e) {}
+      }
+
+      if (matched.length === 0) {
+        listDiv.innerHTML = `<div class="p-6 bg-white rounded-xl text-center text-xs text-slate-500">No tickets found for ${session}.</div>`;
+        return;
+      }
+
+      listDiv.innerHTML = matched.reverse().map(t => `
+        <div class="bg-white p-4 rounded-xl border shadow-sm space-y-1.5 text-xs">
+          <div class="flex justify-between items-center">
+            <span class="font-mono font-bold text-blue-700">${t.ticketId}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">${t.status}</span>
+          </div>
+          <p><strong>Issue:</strong> ${t.issue}</p>
+          <p><strong>Remarks:</strong> ${t.remarks}</p>
+        </div>
+      `).join("");
+    }
+
+    // ========================================================
+    // AI CHAT SUPPORT CONTROLLER
+    // ========================================================
+    let chatStep = "idle";
+    let chatTicketDraft = {};
+
+    function toggleAIChat() {
+      const box = document.getElementById("aiChatBox");
+      box.classList.toggle("hidden");
+      if (!box.classList.contains("hidden")) {
+        if (document.getElementById("aiChatMessages").children.length === 0) {
+          appendBotMessage("Hello! 👋 Welcome to Freshtime AI Support. How can I assist you with your portal issue today? Choose an option below or type directly:");
+        }
+        const container = document.getElementById("aiChatMessages");
+        container.scrollTop = container.scrollHeight;
+      }
+    }
+
+    function appendBotMessage(html) {
+      const container = document.getElementById("aiChatMessages");
+      const msg = document.createElement("div");
+      msg.className = "flex gap-2 items-start";
+      msg.innerHTML = `
+        <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">AI</div>
+        <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 shadow-sm text-slate-800 leading-relaxed max-w-[85%]">${html}</div>
+      `;
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById("aiChatMessages");
+      const msg = document.createElement("div");
+      msg.className = "flex justify-end";
+      msg.innerHTML = `
+        <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-none p-3 shadow-sm leading-relaxed max-w-[85%]">${text}</div>
+      `;
+      container.appendChild(msg);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function triggerChatAction(action) {
+      if (action === "status") {
+        chatStep = "ask_ticket_id";
+        appendBotMessage("Please enter your <strong>Ticket ID</strong> (e.g. <code>UUCMS-123456</code>) or registered 10-digit mobile number to look up status.");
+      } else if (action === "create") {
+        chatStep = "select_classification";
+        chatTicketDraft = {};
+        let optionsHtml = `
+          <p class="mb-2 font-semibold">Please select your <strong>Applicant Classification</strong>:</p>
+          <div class="flex flex-col gap-1.5">
+            <button type="button" onclick="handleClassificationSelect('Student / Candidate')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
+              1. Student / Candidate
+            </button>
+            <button type="button" onclick="handleClassificationSelect('College')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
+              2. College
+            </button>
+            <button type="button" onclick="handleClassificationSelect('University')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
+              3. University
+            </button>
+          </div>
+        `;
+        appendBotMessage(optionsHtml);
+      }
+    }
+
+    function handleClassificationSelect(classification) {
+      appendUserMessage(classification);
+      chatTicketDraft.category = classification;
+      const issues = CLASSIFIED_ISSUES[classification] || [];
+      let issueOptionsHtml = `
+        <p class="mb-2">Selected: <strong>${classification}</strong>.<br>Choose your <strong>Issue Category</strong>:</p>
+        <div class="flex flex-col gap-1.5">
+      `;
+      issues.forEach(item => {
+        issueOptionsHtml += `
+          <button type="button" onclick="handleIssueCategorySelect('${item.label}', ${item.fee})" class="text-left bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
+            ${item.label} (₹${item.fee.toFixed(2)})
+          </button>
+        `;
+      });
+      issueOptionsHtml += `</div>`;
+      chatStep = "select_issue";
+      appendBotMessage(issueOptionsHtml);
+    }
+
+    function handleIssueCategorySelect(issueLabel, fee) {
+      appendUserMessage(`${issueLabel} (₹${fee.toFixed(2)})`);
+      chatTicketDraft.issue = issueLabel;
+      chatTicketDraft.amount = fee.toFixed(2);
+      chatStep = "create_name";
+      appendBotMessage("Next, what is your <strong>Full Name</strong>?");
+    }
+
+    async function handleAIChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById("aiChatInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendUserMessage(text);
+      input.value = "";
+
+      // Lookup Flow
+      if (chatStep === "ask_ticket_id" || text.toUpperCase().startsWith("UUCMS-")) {
+        const query = text.toLowerCase();
+        appendBotMessage("Checking database for ticket reference...");
+
+        let found = null;
+        if (ticketsRef) {
+          try {
+            const snap = await ticketsRef.once("value");
+            const data = snap.val();
+            if (data) {
+              Object.values(data).forEach(t => {
+                if (
+                  (t.ticketId && t.ticketId.toLowerCase() === query) ||
+                  (t.contactNumber && String(t.contactNumber).toLowerCase() === query) ||
+                  (t.utrNumber && String(t.utrNumber).toLowerCase() === query)
+                ) found = t;
+              });
+            }
+          } catch(err) {}
+        }
+
+        if (found) {
+          appendBotMessage(`
+            <strong>Ticket Found:</strong> <code class="font-bold text-blue-700">${found.ticketId}</code><br>
+            <strong>Status:</strong> <span class="text-indigo-600 font-bold">${found.status}</span><br>
+            <strong>Issue:</strong> ${found.issue || "General Issue"}<br>
+            <strong>Remarks:</strong> ${found.remarks || "Under review by technician."}<br><br>
+            <button onclick="navigate('status', 'ticket=${found.ticketId}')" class="text-indigo-600 underline font-bold cursor-pointer">Open Status Page &rarr;</button>
+          `);
+        } else {
+          appendBotMessage(`Sorry, no ticket was found matching <code>${text}</code>. Tap <strong>➕ Raise Ticket</strong> to log a new one.`);
+        }
+        chatStep = "idle";
+        return;
+      }
+
+      // Name Step
+      if (chatStep === "create_name") {
+        chatTicketDraft.applicantName = text;
+        chatStep = "create_phone";
+        appendBotMessage(`Nice to connect, <strong>${text}</strong>! What is your <strong>10-digit mobile number</strong>?`);
+        return;
+      }
+
+      // Phone Step
+      if (chatStep === "create_phone") {
+        const clean = text.replace(/[^0-9]/g, "");
+        if (clean.length !== 10) {
+          appendBotMessage("Please provide a valid <strong>10-digit mobile number</strong>.");
+          return;
+        }
+        chatTicketDraft.contactNumber = clean;
+        chatStep = "create_institution";
+        appendBotMessage("What is your <strong>College or University name</strong>?");
+        return;
+      }
+
+      // Institution Step
+      if (chatStep === "create_institution") {
+        chatTicketDraft.institution = text;
+        chatStep = "create_desc";
+        appendBotMessage("Please describe your <strong>Error Description</strong> (error code or details faced):");
+        return;
+      }
+
+      // Description & Save Step
+      if (chatStep === "create_desc") {
+        chatTicketDraft.description = text;
+        chatTicketDraft.ticketId = "UUCMS-" + Math.floor(100000 + Math.random() * 900000);
+        chatTicketDraft.loginId = "N/A";
+        chatTicketDraft.portalPassword = "N/A";
+        chatTicketDraft.otp = "N/A";
+        chatTicketDraft.contactEmail = "N/A";
+        chatTicketDraft.amount = chatTicketDraft.amount || "80.00";
+        chatTicketDraft.utrNumber = "Payment Pending";
+        chatTicketDraft.paymentId = "UNPAID";
+        chatTicketDraft.paymentMethod = "Pending";
+        chatTicketDraft.status = "Payment Pending / Unpaid";
+        chatTicketDraft.remarks = "Logged via Homepage AI Assistant.";
+        chatTicketDraft.timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+        if (ticketsRef) {
+          try {
+            await ticketsRef.push({
+              ...chatTicketDraft,
+              createdAt: firebase.database.ServerValue.TIMESTAMP
+            });
+          } catch(err) {}
+        }
+
+        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "save_record", ...chatTicketDraft })
+        }).catch(err => console.warn(err));
+
+        appendBotMessage(`
+          🎉 <strong>Ticket Registered!</strong><br><br>
+          • <strong>Ticket ID:</strong> <code class="font-bold text-indigo-700">${chatTicketDraft.ticketId}</code><br>
+          • <strong>Classification:</strong> ${chatTicketDraft.category}<br>
+          • <strong>Issue:</strong> ${chatTicketDraft.issue}<br>
+          • <strong>Amount:</strong> ₹${chatTicketDraft.amount}<br><br>
+          <button onclick="navigate('pay', 'ticket=${chatTicketDraft.ticketId}&amount=${chatTicketDraft.amount}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow cursor-pointer">Proceed to Pay & Upload Proof &rarr;</button>
+        `);
+        chatStep = "idle";
+        return;
+      }
+
+      const lower = text.toLowerCase();
+      if (lower.includes("status") || lower.includes("track") || lower.includes("check")) {
+        triggerChatAction("status");
+      } else if (lower.includes("raise") || lower.includes("create") || lower.includes("new")) {
+        triggerChatAction("create");
+      } else {
+        appendBotMessage("I can help you check ticket status or raise a grievance ticket with classification options. Choose an option below:");
+      }
+    }
+
+    // PWA Controller
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const banner = document.getElementById('pwaInstallBanner');
+      if (banner) banner.classList.remove('hidden');
+    });
+
+    const installBtn = document.getElementById('pwaInstallBtn');
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          document.getElementById('pwaInstallBanner').classList.add('hidden');
+        }
+      });
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+    }
+  </script>
+</body>
+</html>
