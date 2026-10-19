@@ -19,7 +19,7 @@
     .brand-gradient {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
     }
-    /* Safe space padding so mobile bottom navbar doesn't cover content */
+    /* Safe padding so mobile bottom app bar does not overlap content */
     .pb-safe {
       padding-bottom: 5.5rem;
     }
@@ -27,21 +27,17 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between pb-safe md:pb-0">
 
-  <!-- Desktop Top Info Bar (Hidden on Mobile) -->
+  <!-- Desktop Top Info Bar -->
   <div class="hidden md:block bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
       <p>Freshtime Enterprises • Computer Sales • Networking • Technical Resolution Desk</p>
       <div class="flex items-center gap-4">
         <span>Support: +91 7406227904</span>
-        <button type="button" onclick="navigate('admin')" class="text-amber-400 hover:text-amber-300 font-bold underline flex items-center gap-1 cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-          Admin Portal
-        </button>
       </div>
     </div>
   </div>
 
-  <!-- Header (App Style for Mobile, Full Nav for Desktop) -->
+  <!-- Header -->
   <header class="brand-gradient text-white shadow-lg sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
       <div>
@@ -61,16 +57,9 @@
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </button>
       </nav>
-
-      <!-- Mobile Quick Admin Icon Button -->
-      <button type="button" onclick="navigate('admin')" class="md:hidden bg-slate-800/80 p-2 rounded-xl text-blue-200 hover:text-white border border-blue-400/30 flex items-center justify-center">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-        </svg>
-      </button>
     </div>
 
-    <!-- App Install Banner Strip (Mobile Like Image 2) -->
+    <!-- PWA Install Banner Strip -->
     <div id="pwaInstallBanner" class="bg-indigo-950/90 border-t border-indigo-800/50 px-4 py-2 flex items-center justify-between text-xs">
       <div class="flex items-center gap-2 text-indigo-100">
         <span class="text-amber-400 text-sm">📱</span>
@@ -392,76 +381,7 @@
     </div>
   </div>
 
-  <!-- ================= VIEW 6: ADMIN PORTAL (#admin) ================= -->
-  <div id="view-admin" class="page-view hidden max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
-    <div id="adminLoginBox" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 space-y-4">
-      <h2 class="text-xl font-bold text-slate-900 text-center">Freshtime Admin Login</h2>
-      <form onsubmit="handleAdminLogin(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block font-semibold text-slate-700 mb-1">Username</label>
-          <input type="text" id="adminUsername" required placeholder="admin" class="w-full border rounded-lg p-2.5 bg-slate-50 text-sm" />
-        </div>
-        <div>
-          <label class="block font-semibold text-slate-700 mb-1">Password</label>
-          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full border rounded-lg p-2.5 bg-slate-50 text-sm" />
-        </div>
-        <div id="adminLoginError" class="text-red-600 hidden text-center"></div>
-        <button type="submit" class="w-full bg-slate-900 text-white font-semibold py-2.5 rounded-lg text-sm shadow cursor-pointer">Sign In</button>
-      </form>
-    </div>
-
-    <!-- Admin Dashboard -->
-    <div id="adminDashboardBox" class="hidden space-y-5">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-        <h2 class="text-xl font-bold text-slate-900">Ticket Control Center</h2>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="loadUnifiedRecords()" class="bg-blue-600 text-white text-xs px-3 py-2 rounded-lg font-semibold">Refresh</button>
-          <button type="button" onclick="handleAdminLogout()" class="bg-red-600 text-white text-xs px-3 py-2 rounded-lg font-semibold">Sign Out</button>
-        </div>
-      </div>
-      <div class="bg-white rounded-xl border overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-100 uppercase font-semibold text-slate-600 border-b">
-            <tr>
-              <th class="p-3">Status</th>
-              <th class="p-3">Ticket ID</th>
-              <th class="p-3">Applicant</th>
-              <th class="p-3">Category</th>
-              <th class="p-3 text-center">Details</th>
-            </tr>
-          </thead>
-          <tbody id="sheetTableBody" class="divide-y"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- POPUP MODAL: TICKET FULL DETAILS -->
-  <div id="fullDetailsModal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200 overflow-y-auto max-h-[90vh]">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="text-base font-bold text-slate-900" id="modalTicketId">Ticket Full Details</h3>
-        <button type="button" onclick="closeFullDetailsModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
-      </div>
-      <div id="modalDetailsBody" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"></div>
-      <div id="modalActionsFooter" class="pt-3 border-t flex justify-between items-center"></div>
-    </div>
-  </div>
-
-  <!-- POPUP MODAL: IMAGE PROOF -->
-  <div id="imageProofModal" class="fixed inset-0 bg-black/80 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-4 shadow-2xl space-y-3">
-      <div class="flex justify-between items-center border-b pb-2">
-        <h4 class="text-sm font-bold text-slate-900" id="proofTicketIdDisplay">Payment Proof</h4>
-        <button type="button" onclick="closeImageModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold cursor-pointer">&times;</button>
-      </div>
-      <div class="overflow-auto max-h-[70vh] flex justify-center bg-slate-100 rounded-lg p-2 border">
-        <img id="imageProofDisplay" src="" alt="Payment Proof" class="max-w-full rounded shadow" />
-      </div>
-    </div>
-  </div>
-
-  <!-- FLOATING ACTION BUTTONS (DOCKED TOGETHER ABOVE BOTTOM NAV) -->
+  <!-- FLOATING ACTION BUTTONS (DOCKED ABOVE BOTTOM NAVIGATION) -->
   <div class="fixed bottom-20 md:bottom-6 right-4 z-40 flex items-center gap-2.5">
     <!-- AI Chat Toggle Button -->
     <button 
@@ -502,7 +422,7 @@
       <button type="button" onclick="toggleAIChat()" class="text-indigo-200 hover:text-white text-2xl font-bold cursor-pointer leading-none">&times;</button>
     </div>
 
-    <!-- Messages -->
+    <!-- Messages Area -->
     <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-50 text-xs"></div>
 
     <!-- Action Shortcuts -->
@@ -515,34 +435,27 @@
       </button>
     </div>
 
-    <!-- Input -->
+    <!-- User Input -->
     <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2 shrink-0">
       <input type="text" id="aiChatInput" placeholder="Type here..." autocomplete="off" class="flex-1 min-w-0 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
       <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg text-xs font-semibold shrink-0 cursor-pointer">Send</button>
     </form>
   </div>
 
-  <!-- ================= MOBILE APP-STYLE BOTTOM NAVIGATION (AS SEEN IN IMG 2) ================= -->
+  <!-- ================= MOBILE APP BOTTOM NAVIGATION ================= -->
   <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900 text-slate-400 border-t border-slate-800 flex items-center justify-around py-2 px-1 shadow-2xl">
-    <!-- Home Tab -->
     <button type="button" onclick="navigate('home')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       <span>Home</span>
     </button>
-
-    <!-- Status Tab -->
     <button type="button" onclick="navigate('status')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
       <span>Status</span>
     </button>
-
-    <!-- Dashboard Tab -->
     <button type="button" onclick="navigate('student-login')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
       <span>Dashboard</span>
     </button>
-
-    <!-- Center Raise Issue Button (Orange Highlight) -->
     <button type="button" onclick="navigate('complaint')" class="flex flex-col items-center gap-1 text-[10px] text-amber-400 font-bold">
       <div class="w-7 h-7 bg-amber-500 text-slate-950 rounded-full flex items-center justify-center font-black text-base shadow">
         +
@@ -556,7 +469,7 @@
     <div class="max-w-7xl mx-auto px-4 space-y-3 text-center sm:text-left">
       <p class="text-white font-semibold text-sm">Freshtime Enterprises</p>
       <p class="text-slate-300">
-        No. 69, 1st Floor, 2nd Cross, CBI Road,<Br> Vasanthappa Block, Ganganagar,<br> RT Nagar Post, Bengaluru - 560032
+        No. 69, 1st Floor, 2nd Cross, CBI Road, Vasanthappa Block, Ganganagar, RT Nagar Post, Bengaluru, Karnataka 560032
       </p>
       <p class="text-slate-300">
         Contact / WhatsApp: <a href="tel:7406227904" class="text-blue-400 font-bold hover:underline">+91 7406227904</a>
@@ -572,7 +485,7 @@
     </div>
   </footer>
 
-  <!-- ================= SCRIPT & FIREBASE / AI INTEGRATION ================= -->
+  <!-- ================= SCRIPT LOGIC ================= -->
   <script>
     const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbz4yowS5r7KcuCv3rCAqSQr6Wz6E83AJwXQ2VpLG8LEmuH_aGJUSFyymU-893xcBrKR/exec";
     const FRESHTIME_UPI_ID = "freshtime.blr18@ybl";
@@ -586,23 +499,6 @@
         result += charCode.toString(16).padStart(2, '0');
       }
       return "ENC:" + result;
-    }
-
-    function decodeFromHash(hash) {
-      if (!hash || typeof hash !== "string") return "";
-      if (!hash.startsWith("ENC:")) return hash;
-      const rawHex = hash.substring(4);
-      let result = "";
-      try {
-        for (let i = 0; i < rawHex.length; i += 2) {
-          let code = parseInt(rawHex.substr(i, 2), 16);
-          let charCode = code ^ FRESHTIME_CIPHER_SECRET.charCodeAt((i / 2) % FRESHTIME_CIPHER_SECRET.length);
-          result += String.fromCharCode(charCode);
-        }
-        return result;
-      } catch (err) {
-        return hash;
-      }
     }
 
     const firebaseConfig = {
@@ -652,11 +548,9 @@
     };
 
     let isSubmitting = false;
-    let globalUnifiedRecords = [];
     let currentPendingTicket = null;
-    let areCredentialsDecrypted = false;
 
-    // Routing
+    // Public Routing (Without Admin View)
     function navigate(route, params = "") {
       const targetHash = params ? `#${route}?${params}` : `#${route}`;
       if (window.location.hash !== targetHash) {
@@ -690,17 +584,6 @@
         case "pay":
           document.getElementById("view-pay").classList.remove("hidden");
           loadPaymentScreenFromParams(urlParams);
-          break;
-        case "admin":
-          document.getElementById("view-admin").classList.remove("hidden");
-          if (sessionStorage.getItem("freshtime_admin_auth") === "true") {
-            document.getElementById("adminLoginBox").classList.add("hidden");
-            document.getElementById("adminDashboardBox").classList.remove("hidden");
-            loadUnifiedRecords();
-          } else {
-            document.getElementById("adminLoginBox").classList.remove("hidden");
-            document.getElementById("adminDashboardBox").classList.add("hidden");
-          }
           break;
         case "home":
         default:
@@ -1060,107 +943,6 @@
           <p><strong>Remarks:</strong> ${t.remarks}</p>
         </div>
       `).join("");
-    }
-
-    // Admin Auth & Loader
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const u = document.getElementById('adminUsername').value.trim();
-      const p = document.getElementById('adminPassword').value.trim();
-      if (u === "admin" && p === "Freshtime@2026") {
-        sessionStorage.setItem("freshtime_admin_auth", "true");
-        document.getElementById('adminLoginBox').classList.add('hidden');
-        document.getElementById('adminDashboardBox').classList.remove('hidden');
-        loadUnifiedRecords();
-      } else {
-        document.getElementById('adminLoginError').classList.remove('hidden');
-        document.getElementById('adminLoginError').innerText = "Invalid credentials";
-      }
-    }
-
-    function handleAdminLogout() {
-      sessionStorage.removeItem("freshtime_admin_auth");
-      navigate("admin");
-    }
-
-    async function loadUnifiedRecords() {
-      const tbody = document.getElementById('sheetTableBody');
-      tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Loading...</td></tr>`;
-      const recordMap = new Map();
-
-      if (ticketsRef) {
-        try {
-          const snap = await ticketsRef.once("value");
-          const val = snap.val();
-          if (val) {
-            Object.keys(val).forEach(k => {
-              recordMap.set(val[k].ticketId || k, { ...val[k], fbKey: k });
-            });
-          }
-        } catch(e) {}
-      }
-
-      globalUnifiedRecords = Array.from(recordMap.values()).reverse();
-      tbody.innerHTML = globalUnifiedRecords.map(r => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">${r.status}</span></td>
-          <td class="p-3 font-mono font-bold">${r.ticketId}</td>
-          <td class="p-3">${r.applicantName}</td>
-          <td class="p-3">${r.category}</td>
-          <td class="p-3 text-center">
-            <button type="button" onclick="openFullDetailsModal('${r.ticketId}')" class="bg-indigo-600 text-white px-2.5 py-1 rounded text-xs">View</button>
-          </td>
-        </tr>
-      `).join("");
-    }
-
-    function openFullDetailsModal(ticketId) {
-      const rec = globalUnifiedRecords.find(x => x.ticketId === ticketId);
-      if (!rec) return;
-
-      let proofUrl = String(rec.screenshotProof || "").trim();
-      if (!proofUrl) proofUrl = localStorage.getItem("proof_" + rec.ticketId) || "";
-
-      let proofBtn = '<span class="text-slate-400 italic">No proof uploaded</span>';
-      if (proofUrl && (proofUrl.startsWith("http") || proofUrl.startsWith("data:image"))) {
-        proofBtn = `<button type="button" onclick="viewScreenshotProof('${rec.ticketId}')" class="bg-indigo-600 text-white px-2.5 py-1 rounded text-xs font-bold">View Screenshot Proof</button>`;
-      }
-
-      document.getElementById('modalTicketId').innerText = `Ticket: ${rec.ticketId}`;
-      document.getElementById('modalDetailsBody').innerHTML = `
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Status:</strong> ${rec.status}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Applicant:</strong> ${rec.applicantName}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Classification:</strong> ${rec.category}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Institution:</strong> ${rec.institution}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Issue:</strong> ${rec.issue}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>UTR:</strong> ${rec.utrNumber}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Payment Proof:</strong> ${proofBtn}</div>
-        <div class="bg-slate-50 p-2.5 rounded-xl border"><strong>Contact:</strong> ${rec.contactNumber}</div>
-        <div class="sm:col-span-2 bg-slate-50 p-2.5 rounded-xl border"><strong>Description:</strong> ${rec.description || 'None'}</div>
-        <div class="sm:col-span-2 bg-slate-50 p-2.5 rounded-xl border"><strong>Remarks:</strong> ${rec.remarks || 'None'}</div>
-      `;
-
-      document.getElementById('modalActionsFooter').innerHTML = `
-        <button type="button" onclick="closeFullDetailsModal()" class="bg-slate-800 text-white px-4 py-1.5 rounded-lg text-xs">Close</button>
-      `;
-      document.getElementById('fullDetailsModal').classList.remove('hidden');
-    }
-
-    function closeFullDetailsModal() {
-      document.getElementById('fullDetailsModal').classList.add('hidden');
-    }
-
-    function viewScreenshotProof(ticketId) {
-      const rec = globalUnifiedRecords.find(x => x.ticketId === ticketId);
-      let proofUrl = (rec && rec.screenshotProof) || localStorage.getItem("proof_" + ticketId);
-      if (proofUrl) {
-        document.getElementById('imageProofDisplay').src = proofUrl;
-        document.getElementById('imageProofModal').classList.remove('hidden');
-      }
-    }
-
-    function closeImageModal() {
-      document.getElementById('imageProofModal').classList.add('hidden');
     }
 
     // ========================================================
