@@ -19,7 +19,7 @@
     .brand-gradient {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
     }
-    /* Safe padding so mobile bottom app bar does not overlap content */
+    /* Safe padding so the mobile bottom navigation bar never covers content */
     .pb-safe {
       padding-bottom: 5.5rem;
     }
@@ -27,7 +27,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between pb-safe md:pb-0">
 
-  <!-- Desktop Top Info Bar -->
+  <!-- Desktop Top Info Bar (Hidden on Mobile) -->
   <div class="hidden md:block bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
       <p>Freshtime Enterprises • Computer Sales • Networking • Technical Resolution Desk</p>
@@ -59,7 +59,7 @@
       </nav>
     </div>
 
-    <!-- PWA Install Banner Strip -->
+    <!-- PWA Install Banner Strip (Matches Image 2) -->
     <div id="pwaInstallBanner" class="bg-indigo-950/90 border-t border-indigo-800/50 px-4 py-2 flex items-center justify-between text-xs">
       <div class="flex items-center gap-2 text-indigo-100">
         <span class="text-amber-400 text-sm">📱</span>
@@ -97,7 +97,7 @@
       </div>
     </section>
 
-    <!-- Services Grid & Google Reviews -->
+    <!-- Services Grid & Customer Feedback -->
     <main class="max-w-7xl mx-auto w-full px-4 py-8 sm:py-12 space-y-10">
       <section class="space-y-5">
         <div class="border-b pb-3">
@@ -132,12 +132,12 @@
         </div>
       </section>
 
-      <!-- Customer Reviews -->
+      <!-- Customer Reviews Section -->
       <section class="space-y-4 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold text-slate-900">Customer Reviews</h2>
-            <p class="text-xs text-slate-500">Live feedback submitted by students and college applicants.</p>
+            <p class="text-xs text-slate-500">Live feedback submitted by candidates and college applicants.</p>
           </div>
           <a href="https://g.page/r/CaUoZdd6ffFXEBM/review" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-3.5 py-1.5 rounded-lg text-xs shadow flex items-center gap-1.5 transition">
             <span>Leave a Google Review</span>
@@ -208,7 +208,7 @@
       </form>
     </div>
 
-    <!-- Student Dashboard -->
+    <!-- Student Dashboard Display -->
     <div id="studentDashboardBox" class="hidden space-y-5">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div>
@@ -234,21 +234,21 @@
     <div class="flex items-center justify-between pb-2 border-b">
       <div>
         <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Raise Technical Grievance</h2>
-        <p class="text-xs text-slate-500">Fill details below. Password & OTP are entered in secure hash mask.</p>
+        <p class="text-xs text-slate-500">Provide details below. Credentials are entered in secure hash mask.</p>
       </div>
       <button type="button" onclick="navigate('home')" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-1.5 rounded-lg transition font-medium cursor-pointer">
         &larr; Home
       </button>
     </div>
 
-    <!-- Security Warning -->
+    <!-- Security Banner -->
     <div class="bg-amber-50 border-l-4 border-amber-500 p-3.5 rounded-r-xl">
       <p class="text-xs text-amber-900">
-        <strong>Mandatory Auto-Purge Notice:</strong> Passwords and OTPs are permanently purged from database records upon issue resolution.
+        <strong>Mandatory Auto-Purge Notice:</strong> Passwords and OTPs are entered in hash format and permanently purged upon ticket resolution[cite: 1].
       </p>
     </div>
 
-    <!-- Form Card -->
+    <!-- Dynamic Grievance Form -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8">
       <form id="issueForm" onsubmit="handleInitialSubmitAndPay(event)" class="space-y-5">
         <div>
@@ -258,16 +258,13 @@
               <label class="block text-xs font-medium text-slate-700 mb-1">Classification *</label>
               <select id="userCategory" onchange="handleClassificationChange()" required class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 <option value="" disabled selected>-- Select --</option>
-                <option value="Student / Candidate">1. Student / Candidate</option>
-                <option value="College">2. College</option>
-                <option value="University">3. University</option>
               </select>
             </div>
-            <div>
+            <div id="field_wrapper_applicantFullName">
               <label class="block text-xs font-medium text-slate-700 mb-1">Full Name *</label>
               <input type="text" id="applicantFullName" required placeholder="Full Name" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
-            <div>
+            <div id="field_wrapper_institutionName">
               <label class="block text-xs font-medium text-slate-700 mb-1">Institution Name *</label>
               <input type="text" id="institutionName" required placeholder="College / University" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
@@ -283,9 +280,9 @@
                 <option value="" disabled selected>-- Select Classification First --</option>
               </select>
             </div>
-            <div>
+            <div id="field_wrapper_issueDescription">
               <label class="block text-xs font-medium text-slate-700 mb-1">Error Description *</label>
-              <textarea id="issueDescription" rows="2" required placeholder="Describe error code or barrier..." class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+              <textarea id="issueDescription" rows="2" required placeholder="Describe error code or barrier faced..." class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
             </div>
           </div>
         </div>
@@ -293,23 +290,23 @@
         <div>
           <h3 class="text-sm font-semibold text-slate-800 mb-2">3. Portal Login Credentials (Masked)</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
+            <div id="field_wrapper_loginId">
               <label class="block text-xs font-medium text-slate-700 mb-1">Login ID / Register No. *</label>
               <input type="text" id="loginId" required placeholder="U03XX21S0000" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
-            <div>
+            <div id="field_wrapper_portalPassword">
               <label class="block text-xs font-medium text-slate-700 mb-1">Password *</label>
               <input type="password" id="portalPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
-            <div>
+            <div id="field_wrapper_otpValue">
               <label class="block text-xs font-medium text-slate-700 mb-1">Recent OTP (if needed)</label>
               <input type="password" id="otpValue" placeholder="••••••" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs tracking-widest focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
-            <div>
+            <div id="field_wrapper_contactNumber">
               <label class="block text-xs font-medium text-slate-700 mb-1">Contact Phone *</label>
               <input type="tel" id="contactNumber" pattern="[0-9]{10}" required placeholder="10-digit mobile" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
-            <div class="sm:col-span-2">
+            <div id="field_wrapper_contactEmail" class="sm:col-span-2">
               <label class="block text-xs font-medium text-slate-700 mb-1">Email *</label>
               <input type="email" id="contactEmail" required placeholder="name@domain.com" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" />
             </div>
@@ -343,12 +340,12 @@
       </div>
 
       <div class="bg-slate-900 text-white p-3.5 rounded-xl flex items-center justify-between">
-        <span class="text-xs text-slate-400">Total Payable</span>
+        <span class="text-xs text-slate-400">Total Payable Fee</span>
         <span id="fpPayableAmount" class="text-xl font-black text-emerald-400">₹0.00</span>
       </div>
 
-      <!-- QR Card (Updated to Q68094857@ybl) -->
-      <div class="bg-emerald-50 border border-emerald-300 rounded-xl p-3 text-center space-y-2">
+      <!-- QR Code Card (Updated to Q68094857@ybl) -->
+      <div class="bg-emerald-50 border border-emerald-300 rounded-xl p-4 text-center space-y-2">
         <img id="dynamicUpiQr" src="" alt="UPI QR" class="w-44 h-44 mx-auto bg-white p-2 rounded-lg border shadow-sm" />
         <div class="text-[12px] font-mono font-extrabold text-emerald-900 bg-white inline-block px-3 py-1 rounded border border-emerald-300">
           UPI ID: Q68094857@ybl
@@ -383,7 +380,7 @@
     </div>
   </div>
 
-  <!-- FLOATING ACTION BUTTONS (DOCKED ABOVE BOTTOM NAVIGATION) -->
+  <!-- FLOATING ACTION BUTTONS (DOCKED ABOVE BOTTOM APP BAR) -->
   <div class="fixed bottom-20 md:bottom-6 right-4 z-40 flex items-center gap-2.5">
     <!-- AI Chat Toggle Button -->
     <button 
@@ -424,10 +421,10 @@
       <button type="button" onclick="toggleAIChat()" class="text-indigo-200 hover:text-white text-2xl font-bold cursor-pointer leading-none">&times;</button>
     </div>
 
-    <!-- Messages -->
+    <!-- Messages Container -->
     <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-50 text-xs"></div>
 
-    <!-- Action Shortcuts -->
+    <!-- Quick Action Chips -->
     <div class="px-3 py-2 bg-slate-100 border-t border-slate-200 flex gap-2 shrink-0 overflow-x-auto">
       <button type="button" onclick="triggerChatAction('create')" class="bg-white border border-slate-300 text-slate-700 px-2.5 py-1 rounded-full text-[11px] font-semibold hover:bg-indigo-50 whitespace-nowrap shrink-0 cursor-pointer">
         ➕ Raise Ticket
@@ -437,14 +434,14 @@
       </button>
     </div>
 
-    <!-- Input -->
+    <!-- Chat Input Form -->
     <form onsubmit="handleAIChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2 shrink-0">
       <input type="text" id="aiChatInput" placeholder="Type here..." autocomplete="off" class="flex-1 min-w-0 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
       <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg text-xs font-semibold shrink-0 cursor-pointer">Send</button>
     </form>
   </div>
 
-  <!-- ================= MOBILE APP BOTTOM NAVIGATION (AS SEEN IN IMG 2) ================= -->
+  <!-- ================= MOBILE APP BOTTOM NAVIGATION (IMAGE 2 DESIGN) ================= -->
   <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900 text-slate-400 border-t border-slate-800 flex items-center justify-around py-2 px-1 shadow-2xl">
     <button type="button" onclick="navigate('home')" class="flex flex-col items-center gap-1 text-[10px] hover:text-blue-400 focus:text-blue-400">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -517,44 +514,152 @@
 
     let db = null;
     let ticketsRef = null;
+    let configRef = null;
     try {
       firebase.initializeApp(firebaseConfig);
       db = firebase.database();
       ticketsRef = db.ref("uucms_tickets");
+      configRef = db.ref("form_config");
     } catch(err) {
       console.warn(err);
     }
 
-    const CLASSIFIED_ISSUES = {
-      "Student / Candidate": [
-        { label: "APAAR ID Fetching Issue", fee: 150.00 },
-        { label: "Mandatory Password Changing Issue", fee: 70.00 },
-        { label: "Password Reset Error", fee: 70.00 },
-        { label: "Admission / Registration Process", fee: 150.00 },
-        { label: "Exam Application / Hall Ticket Error", fee: 120.00 },
-        { label: "Other Issue", fee: 80.00 }
-      ],
-      "College": [
-        { label: "Affiliation / Intake Approval Sync", fee: 200.00 },
-        { label: "Student Batch Promotion Barrier", fee: 150.00 },
-        { label: "Bulk Student APAAR ID Verification", fee: 250.00 },
-        { label: "College Portal Admin Password Reset", fee: 100.00 },
-        { label: "Internal Assessment Upload Error", fee: 150.00 },
-        { label: "Other Issue", fee: 80.00 }
-      ],
-      "University": [
-        { label: "University Nodal Officer Login Issue", fee: 200.00 },
-        { label: "Curriculum / Scheme Mapping Barrier", fee: 300.00 },
-        { label: "Results Processing / Approval Sync", fee: 250.00 },
-        { label: "University Staff Mandatory Password Loop", fee: 100.00 },
-        { label: "Other Issue", fee: 80.00 }
-      ]
+    // Default Fallback Configurations[cite: 1]
+    const DEFAULT_CONFIG = {
+      fieldVisibility: {
+        applicantFullName: true,
+        institutionName: true,
+        loginId: true,
+        portalPassword: true,
+        otpValue: true,
+        contactNumber: true,
+        contactEmail: true,
+        issueDescription: true
+      },
+      classifications: {
+        "Student / Candidate": [
+          { label: "APAAR ID Fetching Issue", fee: 150.00 },
+          { label: "Mandatory Password Changing Issue", fee: 70.00 },
+          { label: "Password Reset Error", fee: 70.00 },
+          { label: "Admission / Registration Process", fee: 150.00 },
+          { label: "Exam Application / Hall Ticket Error", fee: 120.00 },
+          { label: "Other Issue", fee: 80.00 }
+        ],
+        "College": [
+          { label: "Affiliation / Intake Approval Sync", fee: 200.00 },
+          { label: "Student Batch Promotion Barrier", fee: 150.00 },
+          { label: "Bulk Student APAAR ID Verification", fee: 250.00 },
+          { label: "College Portal Admin Password Reset", fee: 100.00 },
+          { label: "Internal Assessment Upload Error", fee: 150.00 },
+          { label: "Other Issue", fee: 80.00 }
+        ],
+        "University": [
+          { label: "University Nodal Officer Login Issue", fee: 200.00 },
+          { label: "Curriculum / Scheme Mapping Barrier", fee: 300.00 },
+          { label: "Results Processing / Approval Sync", fee: 250.00 },
+          { label: "University Staff Mandatory Password Loop", fee: 100.00 },
+          { label: "Other Issue", fee: 80.00 }
+        ]
+      }
     };
 
+    let LIVE_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
     let isSubmitting = false;
     let currentPendingTicket = null;
 
-    // Public Routing (Without Admin View)
+    // Real-Time Firebase Listener for Admin Customizations
+    function initLiveUserConfig() {
+      if (!configRef) {
+        renderDynamicClassificationDropdown();
+        return;
+      }
+      configRef.on("value", snapshot => {
+        const val = snapshot.val();
+        if (val) {
+          LIVE_CONFIG = val;
+        } else {
+          LIVE_CONFIG = DEFAULT_CONFIG;
+        }
+        renderDynamicClassificationDropdown();
+        applyFieldVisibilityToggles();
+      });
+    }
+
+    function renderDynamicClassificationDropdown() {
+      const select = document.getElementById('userCategory');
+      if (!select) return;
+      const currentSelected = select.value;
+      select.innerHTML = `<option value="" disabled selected>-- Select --</option>`;
+
+      const classes = LIVE_CONFIG.classifications || DEFAULT_CONFIG.classifications;
+      Object.keys(classes).forEach(category => {
+        const opt = document.createElement("option");
+        opt.value = category;
+        opt.innerText = category;
+        select.appendChild(opt);
+      });
+
+      if (currentSelected && classes[currentSelected]) {
+        select.value = currentSelected;
+        handleClassificationChange();
+      }
+    }
+
+    function handleClassificationChange() {
+      const category = document.getElementById('userCategory').value;
+      const issueSelect = document.getElementById('issueCategory');
+      issueSelect.innerHTML = `<option value="" disabled selected>-- Select Technical Issue --</option>`;
+      
+      const classes = LIVE_CONFIG.classifications || DEFAULT_CONFIG.classifications;
+      const issues = classes[category] || [];
+      issues.forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.label;
+        opt.dataset.fee = item.fee;
+        opt.innerText = item.label;
+        issueSelect.appendChild(opt);
+      });
+      updateProcessingFee();
+    }
+
+    function updateProcessingFee() {
+      const issueSelect = document.getElementById('issueCategory');
+      const opt = issueSelect.options[issueSelect.selectedIndex];
+      let rate = 0.00;
+      if (opt && opt.dataset.fee) {
+        rate = parseFloat(opt.dataset.fee);
+      }
+      document.getElementById('displayAmount').innerText = rate.toFixed(2);
+      document.getElementById('fixedAmount').value = rate.toFixed(2);
+      document.getElementById('feeBreakdownText').innerText = rate > 0 ? `Fee for ${opt.value}` : "Service Fee";
+    }
+
+    function applyFieldVisibilityToggles() {
+      const vis = LIVE_CONFIG.fieldVisibility || DEFAULT_CONFIG.fieldVisibility;
+      const fieldKeys = [
+        'applicantFullName', 'institutionName', 'loginId', 
+        'portalPassword', 'otpValue', 'contactNumber', 
+        'contactEmail', 'issueDescription'
+      ];
+
+      fieldKeys.forEach(key => {
+        const wrapper = document.getElementById(`field_wrapper_${key}`);
+        const input = document.getElementById(key);
+        if (wrapper && input) {
+          if (vis[key] === false) {
+            wrapper.classList.add('hidden');
+            input.removeAttribute('required');
+          } else {
+            wrapper.classList.remove('hidden');
+            if (key !== 'otpValue') {
+              input.setAttribute('required', 'true');
+            }
+          }
+        }
+      });
+    }
+
+    // Public Routing Controller
     function navigate(route, params = "") {
       const targetHash = params ? `#${route}?${params}` : `#${route}`;
       if (window.location.hash !== targetHash) {
@@ -602,6 +707,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderCurrentRoute();
       loadPublicReviews();
+      initLiveUserConfig();
     });
 
     async function loadPublicReviews() {
@@ -640,34 +746,6 @@
       `).join("");
     }
 
-    function handleClassificationChange() {
-      const category = document.getElementById('userCategory').value;
-      const issueSelect = document.getElementById('issueCategory');
-      issueSelect.innerHTML = `<option value="" disabled selected>-- Select Technical Issue --</option>`;
-      if (CLASSIFIED_ISSUES[category]) {
-        CLASSIFIED_ISSUES[category].forEach(item => {
-          const opt = document.createElement("option");
-          opt.value = item.label;
-          opt.innerText = item.label;
-          issueSelect.appendChild(opt);
-        });
-      }
-      updateProcessingFee();
-    }
-
-    function updateProcessingFee() {
-      const category = document.getElementById('userCategory').value;
-      const issue = document.getElementById('issueCategory').value;
-      let rate = 0.00;
-      if (CLASSIFIED_ISSUES[category]) {
-        const found = CLASSIFIED_ISSUES[category].find(x => x.label === issue);
-        if (found) rate = found.fee;
-      }
-      document.getElementById('displayAmount').innerText = rate.toFixed(2);
-      document.getElementById('fixedAmount').value = rate.toFixed(2);
-      document.getElementById('feeBreakdownText').innerText = rate > 0 ? `Charge for ${issue}` : "Service Fee";
-    }
-
     async function handleInitialSubmitAndPay(e) {
       e.preventDefault();
       if (isSubmitting) return;
@@ -686,16 +764,16 @@
       const initialPayload = {
         action: "save_record",
         ticketId: ticketId,
-        applicantName: document.getElementById('applicantFullName').value.trim(),
+        applicantName: document.getElementById('applicantFullName').value.trim() || "Applicant",
         category: document.getElementById('userCategory').value,
-        institution: document.getElementById('institutionName').value.trim(),
+        institution: document.getElementById('institutionName').value.trim() || "N/A",
         issue: document.getElementById('issueCategory').value,
-        description: document.getElementById('issueDescription').value.trim(),
-        loginId: document.getElementById('loginId').value.trim(),
+        description: document.getElementById('issueDescription').value.trim() || "N/A",
+        loginId: document.getElementById('loginId').value.trim() || "N/A",
         portalPassword: encodeToHash(rawPassword),
         otp: encodeToHash(rawOtp),
         contactNumber: document.getElementById('contactNumber').value.trim(),
-        contactEmail: document.getElementById('contactEmail').value.trim(),
+        contactEmail: document.getElementById('contactEmail').value.trim() || "N/A",
         amount: amount,
         utrNumber: "Payment Pending",
         paymentId: "UNPAID",
@@ -738,7 +816,7 @@
       document.getElementById("fpPayTicketId").innerText = ticketId;
       document.getElementById("fpPayableAmount").innerText = `₹${amount}`;
 
-      // DYNAMIC QR CODE WITH NEW UPI ID
+      // DYNAMIC QR CODE WITH THE UPDATED UPI ID
       const upi = `upi://pay?pa=${FRESHTIME_UPI_ID}&pn=Freshtime%20Enterprises&am=${amount}&cu=INR&tn=UUCMS%20Fee%20${ticketId}`;
       document.getElementById('dynamicUpiQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upi)}`;
     }
@@ -878,6 +956,7 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">${foundTicket.status}</span>
           </div>
           <p><strong>Applicant:</strong> ${foundTicket.applicantName}</p>
+          <p><strong>Classification:</strong> ${foundTicket.category}</p>
           <p><strong>Issue:</strong> ${foundTicket.issue}</p>
           <p><strong>UTR:</strong> ${foundTicket.utrNumber || 'Under Review'}</p>
           <p><strong>Remarks:</strong> ${foundTicket.remarks || 'None'}</p>
@@ -888,7 +967,6 @@
       }
     }
 
-    // Student Dashboard Login
     function handleStudentLogin(e) {
       e.preventDefault();
       const id = document.getElementById('studentIdentifier').value.trim().toLowerCase();
@@ -951,7 +1029,7 @@
     }
 
     // ========================================================
-    // AI CHAT SUPPORT CONTROLLER
+    // AI CHAT SUPPORT CONTROLLER (SYNCS WITH LIVE CONFIG)
     // ========================================================
     let chatStep = "idle";
     let chatTicketDraft = {};
@@ -998,20 +1076,20 @@
       } else if (action === "create") {
         chatStep = "select_classification";
         chatTicketDraft = {};
+
+        const classes = LIVE_CONFIG.classifications || DEFAULT_CONFIG.classifications;
         let optionsHtml = `
           <p class="mb-2 font-semibold">Please select your <strong>Applicant Classification</strong>:</p>
           <div class="flex flex-col gap-1.5">
-            <button type="button" onclick="handleClassificationSelect('Student / Candidate')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
-              1. Student / Candidate
-            </button>
-            <button type="button" onclick="handleClassificationSelect('College')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
-              2. College
-            </button>
-            <button type="button" onclick="handleClassificationSelect('University')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
-              3. University
-            </button>
-          </div>
         `;
+        Object.keys(classes).forEach(c => {
+          optionsHtml += `
+            <button type="button" onclick="handleClassificationSelect('${c}')" class="text-left bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer">
+              ${c}
+            </button>
+          `;
+        });
+        optionsHtml += `</div>`;
         appendBotMessage(optionsHtml);
       }
     }
@@ -1019,7 +1097,9 @@
     function handleClassificationSelect(classification) {
       appendUserMessage(classification);
       chatTicketDraft.category = classification;
-      const issues = CLASSIFIED_ISSUES[classification] || [];
+
+      const classes = LIVE_CONFIG.classifications || DEFAULT_CONFIG.classifications;
+      const issues = classes[classification] || [];
       let issueOptionsHtml = `
         <p class="mb-2">Selected: <strong>${classification}</strong>.<br>Choose your <strong>Issue Category</strong>:</p>
         <div class="flex flex-col gap-1.5">
@@ -1053,7 +1133,7 @@
       appendUserMessage(text);
       input.value = "";
 
-      // Lookup Flow
+      // Lookup Query Flow
       if (chatStep === "ask_ticket_id" || text.toUpperCase().startsWith("UUCMS-")) {
         const query = text.toLowerCase();
         appendBotMessage("Checking database for ticket reference...");
@@ -1169,11 +1249,11 @@
       } else if (lower.includes("raise") || lower.includes("create") || lower.includes("new")) {
         triggerChatAction("create");
       } else {
-        appendBotMessage("I can help you check ticket status or raise a grievance ticket with classification options. Choose an option below:");
+        appendBotMessage("I can help you check ticket status or raise a grievance ticket. Choose an option below:");
       }
     }
 
-    // PWA Controller
+    // PWA Service Worker Registration & Install Controller
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
